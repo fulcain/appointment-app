@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+	direction: rtl;
+	font-family: IRANRounded;
+	background: #282a36;
+}
