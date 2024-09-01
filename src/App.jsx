@@ -1,7 +1,9 @@
-import './css-reset.css';
-import './assest/font/fontiran.css';
-import { useState } from 'react';
-import Header from './components/Header';
+import "./css-reset.css";
+import "./assest/font/fontiran.css";
+import { useState } from "react";
+import Header from "./components/Header";
+import AdminPage from "./components/Admin/AdminPage";
+import UserPage from "./components/User/UserPage";
 
 // Idea:
 
@@ -15,13 +17,37 @@ import Header from './components/Header';
  * The picked dates by a user will change colors indicating that is picked
  * */
 const App = () => {
-	const [currentAccessLevel, setCurrentAccessLevel] = useState('کاربر');
+	const AdminText = "ادمین";
+	const UserText = "کاربر";
 
-	const changeAccessLevel = () =>{
-		setCurrentAccessLevel(prev => (prev === 'کاربر' ? 'ادمین': 'کاربر'))
+	const [swtichButtonText, setSwitchButtonText] = useState(AdminText);
+
+	const [currentAccessLevel, setCurrentAccessLevel] = useState(AdminText);
+
+	const pageToShow = {
+		[AdminText]: <AdminPage/>,
+		[UserText]: <UserPage/>
 	}
+
+	const changeAccessLevel = () => {
+		setCurrentAccessLevel((prev) =>
+			prev === UserText ? AdminText : UserText
+		);
+
+		setSwitchButtonText(
+			currentAccessLevel === AdminText ? UserText : AdminText
+		);
+	};
+
 	return (
-	<Header accessLevel={currentAccessLevel} changeAccessLevel={changeAccessLevel}/>
+		<>
+			<Header
+				changeAccessLevel={changeAccessLevel}
+				swtichButtonText={swtichButtonText}
+			/>
+
+			{pageToShow[currentAccessLevel]}
+		</>
 	);
 };
 

@@ -7,3 +7,9 @@ body {
 	font-family: IRANRounded;
 	background: #282a36;
 }
+
+.container {
+	max-width: 1200px;
+	width: 90vw;
+	margin: 0 auto;
+}
