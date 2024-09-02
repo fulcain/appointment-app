@@ -10,18 +10,20 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.7",
     "classnames": "^2.5.1",
-    "jalali-moment": "^3.3.11",
+    "concurrently": "^8.2.2",
     "json-server": "^1.0.0-beta.2",
+    "moment-jalaali": "^0.10.1",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "zaman": "^2.1.1"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"npm run server\" ",
+    "server": "json-server --watch db.json -p 9000",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
