@@ -1,7 +1,7 @@
 import "./css-reset.css";
 import "./assest/font/fontiran.css";
 import "./helpers/css/mui-classes.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Header from "./components/Header";
 import AdminPage from "./components/Admin/AdminPage";
 import UserPage from "./components/User/UserPage";
@@ -10,15 +10,27 @@ const App = () => {
 	const AdminText = "ادمین";
 	const UserText = "کاربر";
 
+	const nameRef = useRef({});
+	const phoneRef = useRef({});
+
+	const [currentUserName, setCurrentUserName] = useState(null);
+	const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useState(null);
+
+	const [userIsLogin, setUserIsLogin] = useState(false);
+
 	const [swtichButtonText, setSwitchButtonText] = useState(UserText);
-	console.log(swtichButtonText);
 
 	const [currentAccessLevel, setCurrentAccessLevel] = useState(AdminText);
 
 	const pageToShow = {
-		[AdminText]: <AdminPage/>,
-		[UserText]: <UserPage/>
-	}
+		[AdminText]: <AdminPage />,
+		[UserText]: (
+			<UserPage
+				currentUserName={currentUserName}
+				currentUserPhoneNumber={currentUserPhoneNumber}
+			/>
+		),
+	};
 
 	const changeAccessLevel = () => {
 		setCurrentAccessLevel((prev) =>
@@ -35,6 +47,13 @@ const App = () => {
 			<Header
 				changeAccessLevel={changeAccessLevel}
 				swtichButtonText={swtichButtonText}
+				currentAccessLevel={currentAccessLevel}
+				nameRef={nameRef}
+				phoneRef={phoneRef}
+				userIsLogin={userIsLogin}
+				setUserIsLogin={setUserIsLogin}
+				setCurrentUserName={setCurrentUserName}
+				setCurrentUserPhoneNumber={setCurrentUserPhoneNumber}
 			/>
 
 			{pageToShow[currentAccessLevel]}

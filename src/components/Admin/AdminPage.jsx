@@ -39,6 +39,7 @@ const AdminPage = () => {
 
 			const { status, data: newAppointment } = await createAnAppointment({
 				name: null,
+				phoneNumber: null,
 				time: persianTime,
 				date: persianDate,
 				isReserved: false,
@@ -91,7 +92,8 @@ const AdminPage = () => {
 						className="flex flex-col bg-gray-400 p-4 rounded gap-4 w-[280px]"
 						key={appointment.id}
 					>
-						<span>توسط: {appointment.name || "رزرو نشده"}</span>
+						<span>توسط: {appointment.name || "-"}</span>
+						<span>شماره تلفن: {appointment.phoneNumber || "-"}</span>
 						<span>زمان: {appointment.time}</span>
 						<div>
 							<span>تاریخ: </span>
