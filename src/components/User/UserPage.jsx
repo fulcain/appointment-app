@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
 	getAllAppointments,
 } from "../../services/appointments";
+import PageTitle from "../PageTitle";
 import AvaiableApointments from "./AvaialableApointments";
 import AvaialableDates from "./AvaialAbleDates";
 
@@ -30,12 +31,13 @@ const UserPage = ({ currentUserPhoneNumber, currentUserName, userIsLogin }) => {
 
 	return (
 		<div className="container">
+			<PageTitle title={"صفحه کاربر"}/>
 			{userIsLogin ? (
 				<>
 					<div className="flex flex-col flex-wrap gap-4 mt-8">
-						<h2 className="text-white text-3xl">
+						<h3 className="text-white text-3xl">
 							زمان های قابل رزرو
-						</h2>
+						</h3>
 						{arrayOfDates.length ? (
 							arrayOfDates.map((date, id) => (
 								<AvaialableDates

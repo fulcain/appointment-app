@@ -8,6 +8,7 @@ import {
 } from "../../services/appointments";
 
 import moment from "moment-jalaali";
+import PageTitle from "../PageTitle";
 
 const AdminPage = () => {
 	const [open, setOpen] = useState(false);
@@ -75,6 +76,7 @@ const AdminPage = () => {
 	};
 	return (
 		<div className="container">
+			<PageTitle title={'صفحه ادمین'}/>
 			<Button onClick={handleOpen} variant="outlined">
 				زمان جدید نوبت
 			</Button>
