@@ -36,7 +36,7 @@ const Header = ({
 	return (
 		<header className="w-[90vw] max-w-[1200px] mx-auto grid grid-cols-3 text-center mt-10">
 			<h1 className="col-start-2 text-4xl text-white font-medium">
-				نوبت دهی آرایشگاه
+				نوبت دهی 
 			</h1>
 			<div className="flex flex-row gap-2 place-self-end">
 				{currentAccessLevel === "کاربر" && (
