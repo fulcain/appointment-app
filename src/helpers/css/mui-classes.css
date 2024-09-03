@@ -1,5 +1,5 @@
 /* since the html dir is rtl i didnt find a way to fix this */
 .MuiPickersCalendarHeader-root,
-.MuiPickersToolbar-root {
+.MuiPickersArrowSwitcher-root{
 	direction: ltr;
 }
