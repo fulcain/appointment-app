@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import {
 	getAllAppointments,
-	updateAppointment,
 } from "../../services/appointments";
 import AvaiableApointments from "./AvaialableApointments";
 import AvaialableDates from "./AvaialAbleDates";
+
+import createAvaiableDates from "./helpers/createAvaiableDates";
 
 const UserPage = ({ currentUserPhoneNumber, currentUserName, userIsLogin }) => {
 	const [appointments, setAppointments] = useState([]);
@@ -19,60 +20,13 @@ const UserPage = ({ currentUserPhoneNumber, currentUserName, userIsLogin }) => {
 
 				setAppointments(appointmentData);
 
-				let arrayOfDatesCopy = [];
-
-				appointmentData.forEach((appointment) => {
-					const appointmentDate = appointment.date;
-					const isReserved = appointment.isReserved;
-
-					const dateHasAvailableAppointments =
-						!isReserved &&
-						!arrayOfDatesCopy.includes(appointmentDate);
-
-					if (dateHasAvailableAppointments) {
-						arrayOfDatesCopy.push(appointmentDate);
-					}
-				});
-
-				setArrayOfDates(arrayOfDatesCopy);
+				createAvaiableDates(appointmentData, setArrayOfDates);
 			} catch (err) {
 				console.error(err);
 			}
 		})();
 	}, []);
 
-	const handleDateAppointments = (date) => {
-		let currentDateAppointments = [];
-
-		currentDateAppointments = appointments.filter((appointments) => {
-			return !appointments.isReserved && appointments.date === date;
-		});
-
-		setDateAppointments(currentDateAppointments);
-	};
-
-	const handleReserve = async (appointmentId) => {
-		try {
-			const { data, status } = await updateAppointment(
-				{
-					name: currentUserName,
-					phoneNumber: currentUserPhoneNumber,
-					isReserved: true,
-				},
-				appointmentId
-			);
-
-			if (status === 200) {
-				const newDateAppointments = dateApointments.filter(
-					(appointment) => appointment.id !== appointmentId
-				);
-
-				setDateAppointments(newDateAppointments);
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	};
 
 	return (
 		<div className="container">
@@ -85,10 +39,9 @@ const UserPage = ({ currentUserPhoneNumber, currentUserName, userIsLogin }) => {
 						{arrayOfDates.length ? (
 							arrayOfDates.map((date, id) => (
 								<AvaialableDates
-									handleDateAppointments={
-										handleDateAppointments
-									}
 									date={date}
+									appointments={appointments}
+									setDateAppointments={setDateAppointments}
 									key={id}
 								/>
 							))
@@ -103,8 +56,13 @@ const UserPage = ({ currentUserPhoneNumber, currentUserName, userIsLogin }) => {
 							{dateApointments.map((appointment) => (
 								<AvaiableApointments
 									key={appointment.id}
-									handleReserve={handleReserve}
 									appointment={appointment}
+									dateApointments={dateApointments}
+									setDateAppointments={setDateAppointments}
+									setAppointments={setAppointments}
+									appointments={appointments}
+									currentUserName={currentUserName}
+									currentUserPhoneNumber={currentUserPhoneNumber}
 								/>
 							))}
 						</section>

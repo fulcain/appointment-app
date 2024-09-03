@@ -1,6 +1,15 @@
 import Button from "@mui/material/Button";
+import handleReserve from "./helpers/handleReserve.js";
 
-const AvaiableApointments = ({ appointment, handleReserve }) => {
+const AvaiableApointments = ({
+	appointments,
+	setAppointments,
+	dateApointments,
+	setDateAppointments,
+	appointment,
+	currentUserName,
+	currentUserPhoneNumber
+}) => {
 	return (
 		<div
 			className="flex flex-col w-[200px] bg-gray-400 p-4 rounded gap-4"
@@ -17,7 +26,15 @@ const AvaiableApointments = ({ appointment, handleReserve }) => {
 					className="w-[100px]"
 					variant="outlined"
 					onClick={() => {
-						handleReserve(appointment.id);
+						handleReserve(
+							appointment.id,
+							dateApointments,
+							setDateAppointments,
+							appointments,
+							setAppointments,
+							currentUserName,
+							currentUserPhoneNumber
+						);
 					}}
 				>
 					رزرو

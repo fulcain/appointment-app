@@ -1,9 +1,19 @@
-const AvaialableDates = ({ date, handleDateAppointments }) => {
+import handleDateAppointments from "./helpers/handleDateAppointments";
+
+const AvaialableDates = ({
+	appointments,
+	setDateAppointments,
+	date,
+}) => {
 	return (
 		<>
 			<div
 				onClick={() => {
-					handleDateAppointments(date);
+					handleDateAppointments(
+						setDateAppointments,
+						appointments,
+						date
+					);
 				}}
 				className="hover:cursor-pointer rounded w-max p-4 border-solid bg-white"
 			>
