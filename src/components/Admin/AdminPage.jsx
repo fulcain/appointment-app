@@ -5,19 +5,21 @@ import {
 	getAllAppointments,
 	createAnAppointment,
 	deleteAppointment,
-	updateAppointment,
 } from "../../services/appointments";
+
+import moment from "moment-jalaali";
 
 const AdminPage = () => {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const [appointmentTime, setAppointmentTime] = useState({});
-	const [appointmentDate, setAppointmentDate] = useState({});
+	const [appointmentTime, setAppointmentTime] = useState(moment(new Date()));
+	const [appointmentDate, setAppointmentDate] = useState(moment(new Date()));
 
 	const [appointments, setAppointments] = useState([]);
 
+	// Get all apointments
 	useEffect(() => {
 		(async () => {
 			try {
@@ -32,10 +34,13 @@ const AdminPage = () => {
 
 	const handleCreateAppointment = async () => {
 		try {
+			const persianDate = moment(appointmentDate).format("jYYYY-jM-jD");
+			const persianTime = moment(appointmentTime).format("HH:mm");
+
 			const { status, data: newAppointment } = await createAnAppointment({
 				name: null,
-				time: appointmentTime,
-				date: appointmentDate,
+				time: persianTime,
+				date: persianDate,
 				isReserved: false,
 			});
 
@@ -53,7 +58,7 @@ const AdminPage = () => {
 		const allApointments = [...appointments];
 		try {
 			const newAppointments = allApointments.filter(
-				(appointment) => appointment.id != appointmentId
+				(appointment) => appointment.id !== appointmentId
 			);
 
 			setAppointments(newAppointments);
@@ -80,15 +85,18 @@ const AdminPage = () => {
 				handleCreateAppointment={handleCreateAppointment}
 			/>
 			{/* all apointments */}
-			<div className="flex flex-col gap-4 mt-4">
+			<div className="flex flex-row flex-wrap gap-4 mt-4">
 				{appointments.map((appointment) => (
 					<div
-						className="flex flex-col bg-gray-400 p-4 rounded gap-4"
+						className="flex flex-col bg-gray-400 p-4 rounded gap-4 w-[280px]"
 						key={appointment.id}
 					>
 						<span>توسط: {appointment.name || "رزرو نشده"}</span>
-						{/* <span>زمان: {appointment.time}</span> */}
-						{/* <span>تاریخ: {appointment.date}</span> */}
+						<span>زمان: {appointment.time}</span>
+						<div>
+							<span>تاریخ: </span>
+							<span dir="ltr">{appointment.date}</span>
+						</div>
 						<div>
 							<span>وضعیت: </span>
 							<span
