@@ -13,7 +13,7 @@ export const createAnAppointment = (appointment) => {
 
 export const updateAppointment = (appointment, appointmentId) => {
 	const url = `${SERVER_URL}/appointments/${appointmentId}`;
-	return axios.put(url, appointment);
+	return axios.patch(url, appointment);
 };
 
 
