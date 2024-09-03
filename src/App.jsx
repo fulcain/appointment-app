@@ -28,6 +28,7 @@ const App = () => {
 			<UserPage
 				currentUserName={currentUserName}
 				currentUserPhoneNumber={currentUserPhoneNumber}
+				userIsLogin={userIsLogin}
 			/>
 		),
 	};

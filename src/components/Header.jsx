@@ -41,7 +41,7 @@ const Header = ({
 			<div className="flex flex-row gap-2 place-self-end">
 				{currentAccessLevel === "کاربر" && (
 					<Button onClick={handleOpen} variant="outlined">
-						{userIsLogin ? "خروج" : "ثبت نام"}
+						{userIsLogin ? "خروج" : "ورود"}
 					</Button>
 				)}
 				<Button
