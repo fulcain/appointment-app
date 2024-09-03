@@ -12,14 +12,13 @@ const DateAndTimePickers = ({ setAppointmentDate, setAppointmentTime }) => {
 		<LocalizationProvider dateAdapter={AdapterMomentJalaali}>
 			<div className="flex flex-col gap-2">
 				<DatePicker
-					defaultValue={moment(new Date())}
 					minDate={moment(new Date())}
+					defaultValue={moment(new Date())}
 					onChange={(newValue) => {
 						setAppointmentDate(newValue._d);
 					}}
 				/>
 				<MobileTimePicker
-					minTime={moment(new Date())}
 					defaultValue={moment(new Date())}
 					onChange={(newValue) => {
 						setAppointmentTime(newValue._d);
