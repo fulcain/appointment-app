@@ -1,65 +1,73 @@
 import "./css-reset.css";
 import "./assest/font/fontiran.css";
 import "./helpers/css/mui-classes.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Header from "./components/Header";
 import AdminPage from "./components/Admin/AdminPage";
 import UserPage from "./components/User/UserPage";
+import ApointmentContext from "./context/apointmentContext";
+import { useNavigate, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
 
 const App = () => {
-	const AdminText = "ادمین";
-	const UserText = "کاربر";
+  const navigate = useNavigate();
 
-	const nameRef = useRef({});
-	const phoneRef = useRef({});
+  const nameRef = useRef({});
+  const phoneRef = useRef({});
 
-	const [currentUserName, setCurrentUserName] = useState(null);
-	const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useState(null);
+  const [currentUserName, setCurrentUserName] = useState(null);
+  const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useState(null);
 
-	const [userIsLogin, setUserIsLogin] = useState(false);
+  const [userIsLogin, setUserIsLogin] = useState(false);
 
-	const [swtichButtonText, setSwitchButtonText] = useState(UserText);
+  const [currentAccessLevel, setCurrentAccessLevel] = useState("admin");
 
-	const [currentAccessLevel, setCurrentAccessLevel] = useState(AdminText);
+  // modal related states
+  const [open, setOpen] = useState(true);
 
-	const pageToShow = {
-		[AdminText]: <AdminPage />,
-		[UserText]: (
-			<UserPage
-				currentUserName={currentUserName}
-				currentUserPhoneNumber={currentUserPhoneNumber}
-				userIsLogin={userIsLogin}
-			/>
-		),
-	};
+  const handleHeaderLoginButton = () => {
+    if (!userIsLogin) {
+      setOpen(true);
+    } else {
+      setUserIsLogin(false);
+      navigate("/auth");
+      setOpen(true);
+    }
+  };
 
-	const changeAccessLevel = () => {
-		setCurrentAccessLevel((prev) =>
-			prev === UserText ? AdminText : UserText
-		);
+  const handleClose = () => setOpen(false);
 
-		setSwitchButtonText(
-			swtichButtonText === AdminText ? UserText : AdminText
-		);
-	};
+  useEffect(() => {
+    if (!userIsLogin) navigate("/auth");
+  }, []);
 
-	return (
-		<>
-			<Header
-				changeAccessLevel={changeAccessLevel}
-				swtichButtonText={swtichButtonText}
-				currentAccessLevel={currentAccessLevel}
-				nameRef={nameRef}
-				phoneRef={phoneRef}
-				userIsLogin={userIsLogin}
-				setUserIsLogin={setUserIsLogin}
-				setCurrentUserName={setCurrentUserName}
-				setCurrentUserPhoneNumber={setCurrentUserPhoneNumber}
-			/>
-
-			{pageToShow[currentAccessLevel]}
-		</>
-	);
+  return (
+    <ApointmentContext.Provider
+      value={{
+        currentAccessLevel,
+        setCurrentAccessLevel,
+        nameRef,
+        phoneRef,
+        userIsLogin,
+        setUserIsLogin,
+        setCurrentUserName,
+        setCurrentUserPhoneNumber,
+        currentUserName,
+        currentUserPhoneNumber,
+        handleHeaderLoginButton,
+      }}
+    >
+      <Header />
+      <Routes>
+        <Route
+          path="/auth"
+          element={<Login open={open} handleClose={handleClose} />}
+        />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/user" element={<UserPage />} />
+      </Routes>
+    </ApointmentContext.Provider>
+  );
 };
 
 export default App;
