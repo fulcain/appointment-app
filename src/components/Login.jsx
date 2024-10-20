@@ -3,9 +3,10 @@ import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
 
 import modalStyle from "../helpers/js/modal-styles";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ApointmentContext from "../context/apointmentContext";
 import { useNavigate } from "react-router-dom";
+import { loginValidation } from "../validations/loginValidation";
 
 const Login = ({ open, handleClose }) => {
   const {
@@ -18,26 +19,41 @@ const Login = ({ open, handleClose }) => {
 
   const navigate = useNavigate();
 
+  const [errors, setErrors] = useState([]);
+
   const adminData = {
     phone: "1111",
     userName: "admin",
   };
 
-  const handleLogin = () => {
-    const isAdmin =
-      phoneRef.current.value === adminData.phone &&
-      nameRef.current.value === adminData.userName;
+  const handleLogin = async () => {
+    try {
+      const isAdmin =
+        phoneRef.current.value === adminData.phone &&
+        nameRef.current.value === adminData.userName;
 
-    if (isAdmin) {
-      navigate("/admin");
-    } else {
-      navigate("/user");
+      const userData = {
+        phone: phoneRef.current.value,
+        userName: nameRef.current.value,
+      };
+
+      await loginValidation.validate(userData, { abortEarly: false });
+
+      if (isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/user");
+      }
+
+      setCurrentUserPhoneNumber(phoneRef.current.value);
+      setCurrentUserName(nameRef.current.value);
+
+      setUserIsLogin(true);
+      handleClose();
+    } catch (err) {
+      setErrors(err.inner);
+      setUserIsLogin(false);
     }
-
-    setCurrentUserPhoneNumber(phoneRef.current.value);
-    setCurrentUserName(nameRef.current.value);
-
-    setUserIsLogin(true);
   };
 
   return (
@@ -47,6 +63,14 @@ const Login = ({ open, handleClose }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
+        <div className="flex flex-col gap-2">
+          {errors &&
+            errors.map((error, index) => (
+              <div className="text-red-400" key={index}>
+                {error.message}
+              </div>
+            ))}
+        </div>
         <div className="mt-3 flex flex-col justify-center gap-2">
           <input
             id="name-input"
@@ -58,14 +82,14 @@ const Login = ({ open, handleClose }) => {
             id="phonenumber-input"
             placeholder="شماره تلفن"
             ref={phoneRef}
+            type="number"
             className="border-none bg-zinc-50 py-2 px-4 rounded-sm"
           />
 
           <div className="mt-3 flex flex-row justify-center gap-2">
             <Button
-              onClick={() => {
-                handleLogin();
-                handleClose();
+              onClick={async () => {
+                await handleLogin();
               }}
               className="w-[100px]"
               variant="contained"
