@@ -1,10 +1,11 @@
 import { createContext } from "react";
+import { ApointmentContextTypes } from "../types/apointmentContextTypes";
 
-const ApointmentContext = createContext({
+const ApointmentContext = createContext<ApointmentContextTypes>({
   currentAccessLevel: "",
   setCurrentAccessLevel: () => {},
-  nameRef: "",
-  phoneRef: "",
+  nameRef: {} as React.MutableRefObject<{}>,
+  phoneRef: {} as React.MutableRefObject<{}>,
   userIsLogin: false,
   setUserIsLogin: () => {},
   setCurrentUserName: () => {},
