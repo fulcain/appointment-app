@@ -10,6 +10,7 @@ import {
 import moment from "moment-jalaali";
 import PageTitle from "../PageTitle";
 import { AppointMentsTypes } from "../AppTypes";
+import AdminContext from "../../context/AdminContext";
 
 const AdminPage = () => {
   const [open, setOpen] = useState(false);
@@ -77,57 +78,62 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="container">
-      <PageTitle title={"صفحه ادمین"} />
-      <Button onClick={handleOpen} variant="outlined">
-        زمان جدید نوبت
-      </Button>
-      <ApointmentModal
-        setAppointmentTime={setAppointmentTime}
-        setAppointmentDate={setAppointmentDate}
-        open={open}
-        handleClose={handleClose}
-        handleCreateAppointment={handleCreateAppointment}
-      />
-      {/* all apointments */}
-      <div className="flex flex-row flex-wrap gap-4 mt-4">
-        {appointments.map((appointment) => (
-          <div
-            className="flex flex-col bg-gray-400 p-4 rounded gap-4 w-[280px]"
-            key={appointment.id}
-          >
-            <span>شماره تلفن: {appointment.phoneNumber || "-"}</span>
-            <span>زمان: {appointment.time}</span>
-            <div>
-              <span>تاریخ: </span>
-              <span dir="ltr">{appointment.date}</span>
+    <AdminContext.Provider
+      value={{
+        setAppointmentTime,
+        setAppointmentDate,
+      }}
+    >
+      <div className="container">
+        <PageTitle title={"صفحه ادمین"} />
+        <Button onClick={handleOpen} variant="outlined">
+          زمان جدید نوبت
+        </Button>
+        <ApointmentModal
+          open={open}
+          handleClose={handleClose}
+          handleCreateAppointment={handleCreateAppointment}
+        />
+        {/* all apointments */}
+        <div className="flex flex-row flex-wrap gap-4 mt-4">
+          {appointments.map((appointment) => (
+            <div
+              className="flex flex-col bg-gray-400 p-4 rounded gap-4 w-[280px]"
+              key={appointment.id}
+            >
+              <span>شماره تلفن: {appointment.phoneNumber || "-"}</span>
+              <span>زمان: {appointment.time}</span>
+              <div>
+                <span>تاریخ: </span>
+                <span dir="ltr">{appointment.date}</span>
+              </div>
+              <div>
+                <span>وضعیت: </span>
+                <span
+                  style={{
+                    color: appointment.isReserved ? "green" : "red",
+                  }}
+                >
+                  {appointment.isReserved ? "رزرو شده" : "رزرو نشده"}
+                </span>
+              </div>
+              <div className="w-full flex justify-center items-center">
+                <Button
+                  color="error"
+                  className="w-[100px]"
+                  variant="outlined"
+                  onClick={() =>
+                    handleDeleteAppointment(appointment.id as string)
+                  }
+                >
+                  حذف زمان
+                </Button>
+              </div>
             </div>
-            <div>
-              <span>وضعیت: </span>
-              <span
-                style={{
-                  color: appointment.isReserved ? "green" : "red",
-                }}
-              >
-                {appointment.isReserved ? "رزرو شده" : "رزرو نشده"}
-              </span>
-            </div>
-            <div className="w-full flex justify-center items-center">
-              <Button
-                color="error"
-                className="w-[100px]"
-                variant="outlined"
-                onClick={() =>
-                  handleDeleteAppointment(appointment.id as string)
-                }
-              >
-                حذف زمان
-              </Button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </AdminContext.Provider>
   );
 };
 

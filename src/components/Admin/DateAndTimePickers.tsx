@@ -4,17 +4,13 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 
 import moment from "moment-jalaali";
+import AdminContext from "../../context/AdminContext";
+import { useContext } from "react";
 
-type DateAndTimePickersType = {
-  setAppointmentTime: React.Dispatch<React.SetStateAction<moment.Moment>>;
-  setAppointmentDate: React.Dispatch<React.SetStateAction<moment.Moment>>;
-};
-
-const DateAndTimePickers = ({
-  setAppointmentDate,
-  setAppointmentTime,
-}: DateAndTimePickersType) => {
+const DateAndTimePickers = () => {
   moment.loadPersian({ dialect: "persian-modern" });
+
+  const { setAppointmentDate, setAppointmentTime } = useContext(AdminContext);
 
   return (
     <LocalizationProvider dateAdapter={AdapterMomentJalaali}>

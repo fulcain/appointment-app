@@ -16,7 +16,6 @@ const UserPage = () => {
   const [arrayOfDates, setArrayOfDates] = useState([]);
   const [dateApointments, setDateAppointments] = useState([]);
 
-  // Get all appointments
   useEffect(() => {
     (async () => {
       try {

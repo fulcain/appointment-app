@@ -10,16 +10,12 @@ import moment from "moment-jalaali";
 type ApointmentModalType = {
   open: boolean;
   handleClose: React.MouseEventHandler<HTMLButtonElement>;
-  setAppointmentTime: React.Dispatch<React.SetStateAction<moment.Moment>>;
-  setAppointmentDate: React.Dispatch<React.SetStateAction<moment.Moment>>;
   handleCreateAppointment: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const ApointmentModal = ({
   open,
   handleClose,
-  setAppointmentDate,
-  setAppointmentTime,
   handleCreateAppointment,
 }: ApointmentModalType) => {
   return (
@@ -29,10 +25,7 @@ const ApointmentModal = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
-        <DateAndTimePickers
-          setAppointmentTime={setAppointmentTime}
-          setAppointmentDate={setAppointmentDate}
-        />
+        <DateAndTimePickers />
         <div className="mt-3 flex flex-row justify-center gap-2">
           <Button
             onClick={handleCreateAppointment}
