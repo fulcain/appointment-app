@@ -69,7 +69,6 @@ const Login = ({ open, handleClose }: LoginType) => {
             await handleLogin(values);
           }}
         >
-          {/* <div className="flex flex-col gap-2"></div> */}
           <Form className="mt-3 flex flex-col justify-center gap-2">
             <Field
               id="name-input"
@@ -77,6 +76,10 @@ const Login = ({ open, handleClose }: LoginType) => {
               placeholder="نام"
               className="border-none bg-zinc-50 py-2 px-4 rounded-sm"
             />
+            <ErrorMessage
+              render={(msg) => <div className="my-2 text-red-400">{msg}</div>}
+              name="userName"
+            ></ErrorMessage>
             <Field
               id="phonenumber-input"
               placeholder="شماره تلفن"
@@ -84,7 +87,10 @@ const Login = ({ open, handleClose }: LoginType) => {
               name="phone"
               className="border-none bg-zinc-50 py-2 px-4 rounded-sm"
             />
-
+            <ErrorMessage
+              render={(msg) => <div className="my-2 text-red-400">{msg}</div>}
+              name="phone"
+            ></ErrorMessage>
             <div className="mt-3 flex flex-row justify-center gap-2">
               <Button type="submit" className="w-[100px]" variant="contained">
                 ورود
