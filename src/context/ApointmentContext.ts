@@ -4,8 +4,6 @@ import { ApointmentContextTypes } from "../types/ApointmentContextTypes";
 const ApointmentContext = createContext<ApointmentContextTypes>({
   currentAccessLevel: "",
   setCurrentAccessLevel: () => {},
-  nameRef: {} as React.RefObject<HTMLInputElement>,
-  phoneRef: {} as React.RefObject<HTMLInputElement>,
   userIsLogin: false,
   setUserIsLogin: () => {},
   setCurrentUserName: () => {},

@@ -1,7 +1,7 @@
 import "./css-reset.css";
 import "./assest/font/fontiran.css";
 import "./helpers/css/mui-classes.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import AdminPage from "./components/Admin/AdminPage";
 import UserPage from "./components/User/UserPage";
@@ -12,8 +12,7 @@ import Login from "./components/Login";
 const App = () => {
   const navigate = useNavigate();
 
-  const nameRef = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
+  // const nameRef = useRef<HTMLInputElement>(null); for reference
 
   const [currentUserName, setCurrentUserName] = useState(null);
   const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useState(null);
@@ -46,8 +45,6 @@ const App = () => {
       value={{
         currentAccessLevel,
         setCurrentAccessLevel,
-        nameRef,
-        phoneRef,
         userIsLogin,
         setUserIsLogin,
         setCurrentUserName,

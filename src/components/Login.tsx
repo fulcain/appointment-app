@@ -2,11 +2,11 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
 
-import { ValidationError } from "yup";
 import modalStyle from "../helpers/js/modal-styles";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ApointmentContext from "../context/ApointmentContext";
 import { useNavigate } from "react-router-dom";
+import { Form, Formik, Field, ErrorMessage } from "formik";
 import { loginValidation } from "../validations/loginValidation";
 
 type LoginType = {
@@ -14,36 +14,27 @@ type LoginType = {
   handleClose: Function;
 };
 
+type LoginFieldTypes = {
+  phone: string;
+  userName: string;
+};
+
 const Login = ({ open, handleClose }: LoginType) => {
-  const {
-    phoneRef,
-    nameRef,
-    setCurrentUserName,
-    setCurrentUserPhoneNumber,
-    setUserIsLogin,
-  } = useContext(ApointmentContext);
+  const { setCurrentUserName, setCurrentUserPhoneNumber, setUserIsLogin } =
+    useContext(ApointmentContext);
 
   const navigate = useNavigate();
-
-  const [errors, setErrors] = useState<ValidationError[]>([]);
 
   const adminData = {
     phone: "1111",
     userName: "admin",
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (values: LoginFieldTypes) => {
     try {
       const isAdmin =
-        phoneRef?.current?.value === adminData.phone &&
-        nameRef?.current?.value === adminData.userName;
-
-      const userData = {
-        phone: phoneRef?.current?.value,
-        userName: nameRef?.current?.value,
-      };
-
-      await loginValidation.validate(userData, { abortEarly: false });
+        String(values.phone) === adminData.phone &&
+        values.userName === adminData.userName;
 
       if (isAdmin) {
         navigate("/admin");
@@ -51,13 +42,12 @@ const Login = ({ open, handleClose }: LoginType) => {
         navigate("/user");
       }
 
-      setCurrentUserPhoneNumber(phoneRef?.current?.value);
-      setCurrentUserName(nameRef?.current?.value);
+      setCurrentUserPhoneNumber(values.phone);
+      setCurrentUserName(values.userName);
 
       setUserIsLogin(true);
       handleClose();
     } catch (err: any) {
-      setErrors(err.inner);
       setUserIsLogin(false);
     }
   };
@@ -69,41 +59,39 @@ const Login = ({ open, handleClose }: LoginType) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
-        <div className="flex flex-col gap-2">
-          {errors &&
-            errors.map((error, index) => (
-              <div className="text-red-400" key={index}>
-                {error.message}
-              </div>
-            ))}
-        </div>
-        <div className="mt-3 flex flex-col justify-center gap-2">
-          <input
-            id="name-input"
-            placeholder="نام"
-            ref={nameRef}
-            className="border-none bg-zinc-50 py-2 px-4 rounded-sm"
-          />
-          <input
-            id="phonenumber-input"
-            placeholder="شماره تلفن"
-            ref={phoneRef}
-            type="number"
-            className="border-none bg-zinc-50 py-2 px-4 rounded-sm"
-          />
+        <Formik
+          initialValues={{
+            phone: "",
+            userName: "",
+          }}
+          validationSchema={loginValidation}
+          onSubmit={async (values) => {
+            await handleLogin(values);
+          }}
+        >
+          {/* <div className="flex flex-col gap-2"></div> */}
+          <Form className="mt-3 flex flex-col justify-center gap-2">
+            <Field
+              id="name-input"
+              name="userName"
+              placeholder="نام"
+              className="border-none bg-zinc-50 py-2 px-4 rounded-sm"
+            />
+            <Field
+              id="phonenumber-input"
+              placeholder="شماره تلفن"
+              type="number"
+              name="phone"
+              className="border-none bg-zinc-50 py-2 px-4 rounded-sm"
+            />
 
-          <div className="mt-3 flex flex-row justify-center gap-2">
-            <Button
-              onClick={async () => {
-                await handleLogin();
-              }}
-              className="w-[100px]"
-              variant="contained"
-            >
-              ورود
-            </Button>
-          </div>
-        </div>
+            <div className="mt-3 flex flex-row justify-center gap-2">
+              <Button type="submit" className="w-[100px]" variant="contained">
+                ورود
+              </Button>
+            </div>
+          </Form>
+        </Formik>
       </Box>
     </Modal>
   );
