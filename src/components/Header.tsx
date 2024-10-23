@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import { useContext } from "react";
-import ApointmentContext from "../context/apointmentContext";
+import ApointmentContext from "../context/ApointmentContext";
 
 const Header = () => {
   const { userIsLogin, handleHeaderLoginButton } =

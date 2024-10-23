@@ -5,7 +5,6 @@ import { useState, useRef, useEffect } from "react";
 import Header from "./components/Header";
 import AdminPage from "./components/Admin/AdminPage";
 import UserPage from "./components/User/UserPage";
-// @ts-expect-error TS(1149): File name '/Users/majidkargar/Coding/Personal/appo... Remove this comment to see the full error message
 import ApointmentContext from "./context/ApointmentContext";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
@@ -13,8 +12,8 @@ import Login from "./components/Login";
 const App = () => {
   const navigate = useNavigate();
 
-  const nameRef = useRef({});
-  const phoneRef = useRef({});
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
   const [currentUserName, setCurrentUserName] = useState(null);
   const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useState(null);

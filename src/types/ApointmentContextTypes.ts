@@ -1,13 +1,13 @@
 export type ApointmentContextTypes = {
   currentAccessLevel: string;
   setCurrentAccessLevel: Function;
-  nameRef: React.MutableRefObject<{}>;
-  phoneRef: React.MutableRefObject<{}>;
+  nameRef: React.RefObject<HTMLInputElement>;
+  phoneRef: React.RefObject<HTMLInputElement>;
   userIsLogin: boolean;
   setUserIsLogin: Function;
   currentUserName: string | null;
   setCurrentUserName: Function;
   currentUserPhoneNumber: string | null;
   setCurrentUserPhoneNumber: Function;
-  handleHeaderLoginButton: Function;
+  handleHeaderLoginButton: React.MouseEventHandler<HTMLButtonElement>;
 };

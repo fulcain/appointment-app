@@ -5,28 +5,40 @@ import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 
 import moment from "moment-jalaali";
 
-const DateAndTimePickers = ({ setAppointmentDate, setAppointmentTime }) => {
-	moment.loadPersian({ dialect: "persian-modern" });
+type DateAndTimePickersType = {
+  setAppointmentTime: React.Dispatch<React.SetStateAction<moment.Moment>>;
+  setAppointmentDate: React.Dispatch<React.SetStateAction<moment.Moment>>;
+};
 
-	return (
-		<LocalizationProvider dateAdapter={AdapterMomentJalaali}>
-			<div className="flex flex-col gap-2">
-				<DatePicker
-					minDate={moment(new Date())}
-					defaultValue={moment(new Date())}
-					onChange={(newValue) => {
-						setAppointmentDate(newValue._d);
-					}}
-				/>
-				<MobileTimePicker
-					defaultValue={moment(new Date())}
-					onChange={(newValue) => {
-						setAppointmentTime(newValue._d);
-					}}
-				/>
-			</div>
-		</LocalizationProvider>
-	);
+const DateAndTimePickers = ({
+  setAppointmentDate,
+  setAppointmentTime,
+}: DateAndTimePickersType) => {
+  moment.loadPersian({ dialect: "persian-modern" });
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterMomentJalaali}>
+      <div className="flex flex-col gap-2">
+        <DatePicker
+          minDate={moment(new Date())}
+          defaultValue={moment(new Date())}
+          onChange={(newValue) => {
+            if (newValue) {
+              setAppointmentDate(newValue);
+            }
+          }}
+        />
+        <MobileTimePicker
+          defaultValue={moment(new Date())}
+          onChange={(newValue) => {
+            if (newValue) {
+              setAppointmentTime(newValue);
+            }
+          }}
+        />
+      </div>
+    </LocalizationProvider>
+  );
 };
 
 export default DateAndTimePickers;

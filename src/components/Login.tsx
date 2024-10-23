@@ -2,13 +2,19 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
 
+import { ValidationError } from "yup";
 import modalStyle from "../helpers/js/modal-styles";
 import { useContext, useState } from "react";
-import ApointmentContext from "../context/apointmentContext";
+import ApointmentContext from "../context/ApointmentContext";
 import { useNavigate } from "react-router-dom";
 import { loginValidation } from "../validations/loginValidation";
 
-const Login = ({ open, handleClose }) => {
+type LoginType = {
+  open: boolean;
+  handleClose: Function;
+};
+
+const Login = ({ open, handleClose }: LoginType) => {
   const {
     phoneRef,
     nameRef,
@@ -19,7 +25,7 @@ const Login = ({ open, handleClose }) => {
 
   const navigate = useNavigate();
 
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<ValidationError[]>([]);
 
   const adminData = {
     phone: "1111",
@@ -29,12 +35,12 @@ const Login = ({ open, handleClose }) => {
   const handleLogin = async () => {
     try {
       const isAdmin =
-        phoneRef.current.value === adminData.phone &&
-        nameRef.current.value === adminData.userName;
+        phoneRef?.current?.value === adminData.phone &&
+        nameRef?.current?.value === adminData.userName;
 
       const userData = {
-        phone: phoneRef.current.value,
-        userName: nameRef.current.value,
+        phone: phoneRef?.current?.value,
+        userName: nameRef?.current?.value,
       };
 
       await loginValidation.validate(userData, { abortEarly: false });
@@ -45,12 +51,12 @@ const Login = ({ open, handleClose }) => {
         navigate("/user");
       }
 
-      setCurrentUserPhoneNumber(phoneRef.current.value);
-      setCurrentUserName(nameRef.current.value);
+      setCurrentUserPhoneNumber(phoneRef?.current?.value);
+      setCurrentUserName(nameRef?.current?.value);
 
       setUserIsLogin(true);
       handleClose();
-    } catch (err) {
+    } catch (err: any) {
       setErrors(err.inner);
       setUserIsLogin(false);
     }

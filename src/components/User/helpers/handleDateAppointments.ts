@@ -1,11 +1,17 @@
-const handleDateAppointments = (setDateAppointments, appointments, date) => {
-	let currentDateAppointments = [];
+import { AppointMentsTypes } from "../../AppTypes";
 
-	currentDateAppointments = appointments.filter((appointments) => {
-		return !appointments.isReserved && appointments.date === date;
-	});
+const handleDateAppointments = (
+  setDateAppointments: Function,
+  appointments: AppointMentsTypes[],
+  date: string,
+) => {
+  let currentDateAppointments = [];
 
-	setDateAppointments(currentDateAppointments);
+  currentDateAppointments = appointments.filter((appointments) => {
+    return !appointments.isReserved && appointments.date === date;
+  });
+
+  setDateAppointments(currentDateAppointments);
 };
 
 export default handleDateAppointments;
