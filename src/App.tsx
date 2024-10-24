@@ -1,7 +1,7 @@
 import "./css-reset.css";
 import "./assest/font/fontiran.css";
 import "./helpers/css/mui-classes.css";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import AdminPage from "./components/Admin/AdminPage";
 import UserPage from "./components/User/UserPage";

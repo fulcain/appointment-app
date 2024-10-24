@@ -4,21 +4,20 @@ const createAvailableDates = (
   appointmentData: AppointMentsTypes[],
   setArrayOfDates: Function,
 ) => {
-  let arrayOfDatesCopy: string[] = [];
-
   appointmentData.forEach((appointment) => {
     const appointmentDate = appointment.date;
     const isReserved = appointment.isReserved;
 
-    const dateHasAvailableAppointments =
-      !isReserved && !arrayOfDatesCopy.includes(appointmentDate);
+    setArrayOfDates((draft: string[]) => {
+      const dateHasAvailableAppointments =
+        !isReserved && !draft.includes(appointmentDate);
 
-    if (dateHasAvailableAppointments) {
-      arrayOfDatesCopy.push(appointmentDate);
-    }
+      if (dateHasAvailableAppointments) {
+        draft.push(appointmentDate);
+      }
+      return;
+    });
   });
-
-  setArrayOfDates(arrayOfDatesCopy);
 };
 
 export default createAvailableDates;

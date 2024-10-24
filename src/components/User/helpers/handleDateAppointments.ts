@@ -5,13 +5,11 @@ const handleDateAppointments = (
   appointments: AppointMentsTypes[],
   date: string,
 ) => {
-  let currentDateAppointments = [];
-
-  currentDateAppointments = appointments.filter((appointments) => {
-    return !appointments.isReserved && appointments.date === date;
-  });
-
-  setDateAppointments(currentDateAppointments);
+  setDateAppointments(
+    appointments.filter((appointments) => {
+      return !appointments.isReserved && appointments.date === date;
+    }),
+  );
 };
 
 export default handleDateAppointments;

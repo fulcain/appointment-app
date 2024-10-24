@@ -11,6 +11,7 @@ import moment from "moment-jalaali";
 import PageTitle from "../PageTitle";
 import { AppointMentsTypes } from "../AppTypes";
 import AdminContext from "../../context/AdminContext";
+import { useImmer } from "use-immer";
 
 const AdminPage = () => {
   const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ const AdminPage = () => {
   const [appointmentTime, setAppointmentTime] = useState(moment(new Date()));
   const [appointmentDate, setAppointmentDate] = useState(moment(new Date()));
 
-  const [appointments, setAppointments] = useState<AppointMentsTypes[]>([]);
+  const [appointments, setAppointments] = useImmer<AppointMentsTypes[]>([]);
 
   // Get all apointments
   useEffect(() => {
@@ -49,9 +50,9 @@ const AdminPage = () => {
       });
 
       if (status === 201) {
-        const allApointments = [...appointments, newAppointment];
-
-        setAppointments(allApointments);
+        setAppointments((draft) => {
+          draft.push(newAppointment);
+        });
       }
     } catch (err) {
       throw err;
@@ -59,18 +60,16 @@ const AdminPage = () => {
   };
 
   const handleDeleteAppointment = async (appointmentId: string) => {
-    const allApointments = [...appointments];
+    const copyOfAppointMents = [...appointments];
     try {
-      const newAppointments = allApointments.filter(
-        (appointment) => appointment.id !== appointmentId,
+      setAppointments((draft) =>
+        draft.filter((appointment) => appointment.id !== appointmentId),
       );
-
-      setAppointments(newAppointments);
 
       const { status } = await deleteAppointment(appointmentId);
 
       if (status !== 200) {
-        setAppointments(allApointments);
+        setAppointments(copyOfAppointMents);
       }
     } catch (err) {
       throw err;

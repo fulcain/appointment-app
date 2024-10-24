@@ -7,14 +7,16 @@ import AvaialableDates from "./AvaialAbleDates";
 
 import createAvailableDates from "./helpers/createAvaiableDates";
 import { AppointMentsTypes } from "../AppTypes";
+import { useImmer } from "use-immer";
 
 const UserPage = () => {
-  const { userIsLogin, currentUserPhoneNumber, currentUserName } =
-    useContext(ApointmentContext);
+  const { userIsLogin } = useContext(ApointmentContext);
 
-  const [appointments, setAppointments] = useState<AppointMentsTypes[]>([]);
-  const [arrayOfDates, setArrayOfDates] = useState([]);
-  const [dateApointments, setDateAppointments] = useState([]);
+  const [appointments, setAppointments] = useImmer<AppointMentsTypes[]>([]);
+  const [arrayOfDates, setArrayOfDates] = useImmer([]);
+  const [dateApointments, setDateAppointments] = useImmer<AppointMentsTypes[]>(
+    [],
+  );
 
   useEffect(() => {
     (async () => {
@@ -42,9 +44,9 @@ const UserPage = () => {
                 arrayOfDates.map((date, id) => (
                   <AvaialableDates
                     date={date}
-                    appointments={appointments}
                     setDateAppointments={setDateAppointments}
                     key={id}
+                    appointments={appointments}
                   />
                 ))
               ) : (
@@ -60,12 +62,8 @@ const UserPage = () => {
                 <AvaiableApointments
                   key={idx}
                   appointment={appointment}
-                  dateApointments={dateApointments}
                   setDateAppointments={setDateAppointments}
                   setAppointments={setAppointments}
-                  appointments={appointments}
-                  currentUserName={currentUserName as string}
-                  currentUserPhoneNumber={currentUserPhoneNumber as string}
                 />
               ))}
             </section>

@@ -1,26 +1,23 @@
 import Button from "@mui/material/Button";
 import handleReserve from "./helpers/handleReserve";
 import { AppointMentsTypes } from "../AppTypes";
+import { useContext } from "react";
+import ApointmentContext from "../../context/ApointmentContext";
 
 type AvaiableApointmentsType = {
-  appointments: AppointMentsTypes[];
   setAppointments: Function;
-  dateApointments: AppointMentsTypes[];
   setDateAppointments: Function;
   appointment: AppointMentsTypes;
-  currentUserName: string;
-  currentUserPhoneNumber: string;
 };
 
 const AvaiableApointments = ({
-  appointments,
   setAppointments,
-  dateApointments,
   setDateAppointments,
   appointment,
-  currentUserName,
-  currentUserPhoneNumber,
 }: AvaiableApointmentsType) => {
+  const { currentUserPhoneNumber, currentUserName } =
+    useContext(ApointmentContext);
+
   return (
     <div
       className="flex flex-col w-[200px] bg-gray-400 p-4 rounded gap-4"
@@ -39,12 +36,10 @@ const AvaiableApointments = ({
           onClick={() => {
             handleReserve({
               appointmentId: appointment.id as string,
-              dateApointments,
               setDateAppointments,
-              appointments,
               setAppointments,
-              currentUserName,
-              currentUserPhoneNumber,
+              currentUserName: currentUserName as string,
+              currentUserPhoneNumber: currentUserPhoneNumber as string,
             });
           }}
         >

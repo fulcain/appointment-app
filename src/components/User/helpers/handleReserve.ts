@@ -4,8 +4,6 @@ import { AppointMentsTypes } from "../../AppTypes";
 type handleReserveTypes = {
   appointmentId: string;
   setAppointments: Function;
-  appointments: AppointMentsTypes[];
-  dateApointments: AppointMentsTypes[];
   setDateAppointments: Function;
   currentUserName: string;
   currentUserPhoneNumber: string;
@@ -13,9 +11,7 @@ type handleReserveTypes = {
 
 const handleReserve = async ({
   appointmentId,
-  dateApointments,
   setDateAppointments,
-  appointments,
   setAppointments,
   currentUserName,
   currentUserPhoneNumber,
@@ -31,16 +27,13 @@ const handleReserve = async ({
     );
 
     if (status === 200) {
-      const newDateAppointments = dateApointments.filter(
-        (appointment) => appointment.id !== appointmentId,
+      setDateAppointments((draft: AppointMentsTypes[]) =>
+        draft.filter((appointment) => appointment.id !== appointmentId),
       );
 
-      const newAppointments = appointments.filter(
-        (appointment) => appointment.id !== appointmentId,
+      setAppointments((draft: AppointMentsTypes[]) =>
+        draft.filter((appointment) => appointment.id !== appointmentId),
       );
-
-      setDateAppointments(newDateAppointments);
-      setAppointments(newAppointments);
     }
   } catch (err) {
     console.error(err);
