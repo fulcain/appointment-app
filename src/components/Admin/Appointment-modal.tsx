@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import DateAndTimePickers from "./DateAndTimePickers";
 
 import modalStyle from "../../helpers/js/modal-styles";
-import moment from "moment-jalaali";
 
 type ApointmentModalType = {
   open: boolean;

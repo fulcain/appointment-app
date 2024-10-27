@@ -1,5 +1,6 @@
 import { updateAppointment } from "../../../services/appointments";
 import { AppointMentsTypes } from "../../AppTypes";
+import { toast } from "react-toastify";
 
 type handleReserveTypes = {
   appointmentId: string;
@@ -27,6 +28,7 @@ const handleReserve = async ({
     );
 
     if (status === 200) {
+      toast.success("زمان با موفقیت رزرو شد");
       setDateAppointments((draft: AppointMentsTypes[]) =>
         draft.filter((appointment) => appointment.id !== appointmentId),
       );
@@ -36,6 +38,7 @@ const handleReserve = async ({
       );
     }
   } catch (err) {
+    toast.error("مشکلی برای رزرو نوبت پیش آمد");
     console.error(err);
   }
 };

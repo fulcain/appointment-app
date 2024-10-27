@@ -8,6 +8,9 @@ import UserPage from "./components/User/UserPage";
 import ApointmentContext from "./context/ApointmentContext";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.min.css";
 
 const App = () => {
   const navigate = useNavigate();
@@ -54,6 +57,7 @@ const App = () => {
         handleHeaderLoginButton,
       }}
     >
+      <ToastContainer position="top-right" rtl={true} theme="colored" />
       <Header />
       <Routes>
         <Route

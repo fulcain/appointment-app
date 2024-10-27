@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
 import { getAllAppointments } from "../../services/appointments";
 import PageTitle from "../PageTitle";
-import AvaiableApointments from "./AvaialableApointments";
+import AvaiableAppointmentsTable from "./AvailableAppointmentsTable";
 import AvaialableDates from "./AvaialAbleDates";
 
 import createAvailableDates from "./helpers/createAvaiableDates";
@@ -58,14 +58,11 @@ const UserPage = () => {
           </div>
           <main>
             <section className="flex gap-10 flex-row flex-wrap mt-10">
-              {dateApointments.map((appointment, idx) => (
-                <AvaiableApointments
-                  key={idx}
-                  appointment={appointment}
-                  setDateAppointments={setDateAppointments}
-                  setAppointments={setAppointments}
-                />
-              ))}
+              <AvaiableAppointmentsTable
+                setDateAppointments={setDateAppointments}
+                dateApointments={dateApointments}
+                setAppointments={setAppointments}
+              />
             </section>
           </main>
         </>
