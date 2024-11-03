@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
 import { getAllAppointments } from "../../services/appointments";
 import PageTitle from "../PageTitle";

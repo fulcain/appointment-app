@@ -30,7 +30,7 @@ const ReserveButton = ({
   return (
     <Button
       color="success"
-      className="w-[100px]"
+      className="w-full"
       variant="outlined"
       onClick={() => {
         handleReserve({
@@ -59,30 +59,34 @@ const AvaiableAppointmentsTable = ({
     {
       field: "id",
       headerName: "ID",
-      width: 70,
       resizable: false,
-      align: "right",
+      align: "center",
     },
     {
       field: "date",
       headerName: "تاریخ",
-      width: 130,
       resizable: false,
-      align: "right",
+      align: "center",
     },
     {
       field: "time",
       headerName: "زمان",
-      width: 130,
       resizable: false,
-      align: "right",
+      align: "center",
     },
     {
       field: "reserveButton",
       headerName: "عملیات",
-      width: 130,
-      resizable: false,
-      align: "right",
+      align: "center",
+      renderCell: (params) => (
+        <ReserveButton
+          currentUserName={currentUserName as string}
+          currentUserPhoneNumber={currentUserPhoneNumber as string}
+          appointmentId={params.row.id}
+          setDateAppointments={setDateAppointments}
+          setAppointments={setAppointments}
+        />
+      ),
     },
   ];
 
@@ -91,31 +95,22 @@ const AvaiableAppointmentsTable = ({
       id: appointment.id,
       date: appointment.date,
       time: appointment.time,
-      reserveButton: (
-        <ReserveButton
-          currentUserName={currentUserName as string}
-          currentUserPhoneNumber={currentUserPhoneNumber as string}
-          appointmentId={appointment.id as string}
-          setDateAppointments={setDateAppointments}
-          setAppointments={setAppointments}
-        />
-      ),
     };
   });
 
   const paginationModel = { page: 0, pageSize: 5 };
 
-    return (
-      <Paper sx={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
-          sx={{ border: 0 }}
-        />
-      </Paper>
-    );
+  return (
+    <Paper sx={{ height: 400, width: "100%" }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        initialState={{ pagination: { paginationModel } }}
+        pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
+        sx={{ border: 0 }}
+      />
+    </Paper>
+  );
 };
 
 export default AvaiableAppointmentsTable;
