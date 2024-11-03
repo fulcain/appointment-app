@@ -1,4 +1,3 @@
-import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import ApointmentModal from "./Appointment-modal";
 import {
@@ -12,6 +11,10 @@ import PageTitle from "../PageTitle";
 import { AppointMentsTypes } from "../AppTypes";
 import AdminContext from "../../context/AdminContext";
 import { useImmer } from "use-immer";
+
+import { Button, Paper } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Updater } from "use-immer";
 
 const AdminPage = () => {
   const [open, setOpen] = useState(false);
@@ -76,6 +79,78 @@ const AdminPage = () => {
     }
   };
 
+  type DeleteAppointmentButtonType = {
+    appointmentId: string;
+  };
+  const DeleteAppointmentButton = ({
+    appointmentId,
+  }: DeleteAppointmentButtonType) => (
+    <Button
+      color="error"
+      className="w-[100px]"
+      variant="outlined"
+      onClick={() => handleDeleteAppointment(appointmentId as string)}
+    >
+      حذف زمان
+    </Button>
+  );
+
+  const columns: GridColDef[] = [
+    {
+      field: "id",
+      headerName: "ID",
+      resizable: false,
+      align: "center",
+    },
+    {
+      field: "name",
+      headerName: "نام",
+      resizable: false,
+      align: "center",
+    },
+
+    {
+      field: "phoneNumber",
+      headerName: "شماره تلفن",
+      resizable: false,
+      align: "center",
+    },
+    {
+      field: "date",
+      headerName: "تاریخ",
+      resizable: false,
+      align: "center",
+    },
+    {
+      field: "time",
+      headerName: "زمان",
+      resizable: false,
+      align: "center",
+    },
+    {
+      field: "reserveButton",
+      headerName: "عملیات",
+      align: "center",
+      width: 150,
+      renderCell: (params) => (
+        <DeleteAppointmentButton appointmentId={params.row.id} />
+      ),
+    },
+  ];
+
+  const rows = appointments.map((appointment) => {
+    console.log(appointment);
+    return {
+      id: appointment.id ?? "-",
+      name: appointment.name ?? "-",
+      phoneNumber: appointment.phoneNumber ?? "-",
+      date: appointment.date ?? "-",
+      time: appointment.time ?? "-",
+    };
+  });
+
+  const paginationModel = { page: 0, pageSize: 5 };
+
   return (
     <AdminContext.Provider
       value={{
@@ -94,43 +169,15 @@ const AdminPage = () => {
           handleCreateAppointment={handleCreateAppointment}
         />
         {/* all apointments */}
-        <div className="flex flex-row flex-wrap gap-4 mt-4">
-          {appointments.map((appointment) => (
-            <div
-              className="flex flex-col bg-gray-400 p-4 rounded gap-4 w-[280px]"
-              key={appointment.id}
-            >
-              <span>شماره تلفن: {appointment.phoneNumber || "-"}</span>
-              <span>زمان: {appointment.time}</span>
-              <div>
-                <span>تاریخ: </span>
-                <span dir="ltr">{appointment.date}</span>
-              </div>
-              <div>
-                <span>وضعیت: </span>
-                <span
-                  style={{
-                    color: appointment.isReserved ? "green" : "red",
-                  }}
-                >
-                  {appointment.isReserved ? "رزرو شده" : "رزرو نشده"}
-                </span>
-              </div>
-              <div className="w-full flex justify-center items-center">
-                <Button
-                  color="error"
-                  className="w-[100px]"
-                  variant="outlined"
-                  onClick={() =>
-                    handleDeleteAppointment(appointment.id as string)
-                  }
-                >
-                  حذف زمان
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Paper className="mt-5" sx={{ height: 400, width: "100%" }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{ pagination: { paginationModel } }}
+            pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
+            sx={{ border: 0 }}
+          />
+        </Paper>
       </div>
     </AdminContext.Provider>
   );

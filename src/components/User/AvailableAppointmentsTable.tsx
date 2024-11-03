@@ -1,9 +1,9 @@
-import Button from "@mui/material/Button";
 import handleReserve from "./helpers/handleReserve";
 import { AppointMentsTypes } from "../AppTypes";
 import { useContext } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
-import Paper from "@mui/material/Paper";
+
+import { Button, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Updater } from "use-immer";
 
