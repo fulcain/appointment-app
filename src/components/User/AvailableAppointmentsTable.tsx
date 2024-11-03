@@ -5,16 +5,15 @@ import { useContext } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
 import Paper from "@mui/material/Paper";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Updater } from "use-immer";
 
 type AvaiableAppointmentsTableType = {
-  setAppointments: Function;
-  dateApointments: AppointMentsTypes[];
-  setDateAppointments: Function;
+  appointments: AppointMentsTypes[];
+  setAppointments: Updater<AppointMentsTypes[]>;
 };
 
 type ReserveButtonType = {
   appointmentId: string;
-  setDateAppointments: Function;
   setAppointments: Function;
   currentUserPhoneNumber: string;
   currentUserName: string;
@@ -22,7 +21,6 @@ type ReserveButtonType = {
 
 const ReserveButton = ({
   appointmentId,
-  setDateAppointments,
   setAppointments,
   currentUserName,
   currentUserPhoneNumber,
@@ -35,7 +33,6 @@ const ReserveButton = ({
       onClick={() => {
         handleReserve({
           appointmentId,
-          setDateAppointments,
           setAppointments,
           currentUserName: currentUserName as string,
           currentUserPhoneNumber: currentUserPhoneNumber as string,
@@ -48,8 +45,7 @@ const ReserveButton = ({
 };
 
 const AvaiableAppointmentsTable = ({
-  dateApointments,
-  setDateAppointments,
+  appointments,
   setAppointments,
 }: AvaiableAppointmentsTableType) => {
   const { currentUserPhoneNumber, currentUserName } =
@@ -83,14 +79,13 @@ const AvaiableAppointmentsTable = ({
           currentUserName={currentUserName as string}
           currentUserPhoneNumber={currentUserPhoneNumber as string}
           appointmentId={params.row.id}
-          setDateAppointments={setDateAppointments}
           setAppointments={setAppointments}
         />
       ),
     },
   ];
 
-  const rows = dateApointments.map((appointment) => {
+  const rows = appointments.map((appointment) => {
     return {
       id: appointment.id,
       date: appointment.date,

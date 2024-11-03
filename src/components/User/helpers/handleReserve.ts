@@ -5,14 +5,12 @@ import { toast } from "react-toastify";
 type handleReserveTypes = {
   appointmentId: string;
   setAppointments: Function;
-  setDateAppointments: Function;
   currentUserName: string;
   currentUserPhoneNumber: string;
 };
 
 const handleReserve = async ({
   appointmentId,
-  setDateAppointments,
   setAppointments,
   currentUserName,
   currentUserPhoneNumber,
@@ -29,10 +27,6 @@ const handleReserve = async ({
 
     if (status === 200) {
       toast.success("زمان با موفقیت رزرو شد");
-      setDateAppointments((draft: AppointMentsTypes[]) =>
-        draft.filter((appointment) => appointment.id !== appointmentId),
-      );
-
       setAppointments((draft: AppointMentsTypes[]) =>
         draft.filter((appointment) => appointment.id !== appointmentId),
       );
