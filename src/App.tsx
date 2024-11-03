@@ -1,13 +1,5 @@
-import "./css-reset.css";
-import "./assest/font/fontiran.css";
-import "./helpers/css/mui-classes.css";
 import { useEffect, useState } from "react";
-import Header from "./components/Header";
-import AdminPage from "./components/Admin/AdminPage";
-import UserPage from "./components/User/UserPage";
-import ApointmentContext from "./context/ApointmentContext";
 import { useNavigate, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
 import { ToastContainer } from "react-toastify";
 import theme from "./components/theme";
 import { ThemeProvider } from "@mui/material/styles";
@@ -16,12 +8,19 @@ import stylisRTLPlugin from "stylis-plugin-rtl";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 
+import Header from "./components/Header";
+import AdminPage from "./components/Admin/AdminPage";
+import UserPage from "./components/User/UserPage";
+import ApointmentContext from "./context/ApointmentContext";
+import Login from "./components/Login";
+
 import "react-toastify/dist/ReactToastify.min.css";
+
+import "./css-reset.css";
+import "./assest/font/fontiran.css";
 
 const App = () => {
   const navigate = useNavigate();
-
-  // const nameRef = useRef<HTMLInputElement>(null); for reference
 
   const [currentUserName, setCurrentUserName] = useState(null);
   const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useState(null);
