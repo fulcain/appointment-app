@@ -1,49 +1,16 @@
-import handleReserve from "./helpers/handleReserve";
 import { AppointMentsTypes } from "../AppTypes";
 import { useContext } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
 
-import { Button, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Updater } from "use-immer";
+import ReserveButton from "./ReserveButton";
 
 type AvaiableAppointmentsTableType = {
   appointments: AppointMentsTypes[];
   setAppointments: Updater<AppointMentsTypes[]>;
 };
-
-type ReserveButtonType = {
-  appointmentId: string;
-  setAppointments: Function;
-  currentUserPhoneNumber: string;
-  currentUserName: string;
-};
-
-const ReserveButton = ({
-  appointmentId,
-  setAppointments,
-  currentUserName,
-  currentUserPhoneNumber,
-}: ReserveButtonType) => {
-  return (
-    <Button
-      color="success"
-      className="w-full"
-      variant="outlined"
-      onClick={() => {
-        handleReserve({
-          appointmentId,
-          setAppointments,
-          currentUserName: currentUserName as string,
-          currentUserPhoneNumber: currentUserPhoneNumber as string,
-        });
-      }}
-    >
-      رزرو
-    </Button>
-  );
-};
-
 const AvaiableAppointmentsTable = ({
   appointments,
   setAppointments,
