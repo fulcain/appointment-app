@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ApointmentModal from "./Appointment-modal";
+import ApointmentModal from "./AppointmentModal";
 import { getAllAppointments } from "../../services/appointments";
 
 import moment from "moment-jalaali";
