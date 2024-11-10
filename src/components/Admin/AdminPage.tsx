@@ -3,7 +3,6 @@ import ApointmentModal from "./AppointmentModal";
 import { getAllAppointments } from "../../services/appointments";
 
 import moment from "moment-jalaali";
-import PageTitle from "../PageTitle";
 import { AppointMentsTypes } from "../AppTypes";
 import AdminContext from "../../context/AdminContext";
 import { useImmer } from "use-immer";
@@ -42,7 +41,6 @@ const AdminPage = () => {
       }}
     >
       <div className="container">
-        <PageTitle title={"صفحه ادمین"} />
         <Button onClick={handleOpen} variant="outlined">
           زمان جدید نوبت
         </Button>

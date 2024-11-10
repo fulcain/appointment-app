@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
 import { getAllAppointments } from "../../services/appointments";
-import PageTitle from "../PageTitle";
 import AvaiableAppointmentsTable from "./AvailableAppointmentsTable";
 import { AppointMentsTypes } from "../AppTypes";
 import { useImmer } from "use-immer";
@@ -25,7 +24,6 @@ const UserPage = () => {
 
   return (
     <div className="container">
-      <PageTitle title={"صفحه کاربر"} />
       {userIsLogin ? (
         <>
           <main>
