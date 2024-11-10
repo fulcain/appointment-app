@@ -17,7 +17,6 @@ import Login from "./components/Login";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import "./css-reset.css";
-import "./assest/font/fontiran.css";
 
 const App = () => {
   const navigate = useNavigate();
