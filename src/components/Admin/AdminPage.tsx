@@ -16,9 +16,7 @@ const AdminPage = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [appointmentTime, setAppointmentTime] = useState(moment(new Date()));
   const [appointmentDate, setAppointmentDate] = useState(moment(new Date()));
-
   const [appointments, setAppointments] = useImmer<AppointMentsTypes[]>([]);
 
   // Get all apointments
@@ -37,12 +35,10 @@ const AdminPage = () => {
   return (
     <AdminContext.Provider
       value={{
-        setAppointmentTime,
         setAppointmentDate,
         appointments,
         setAppointments,
         appointmentDate,
-        appointmentTime,
       }}
     >
       <div className="container">

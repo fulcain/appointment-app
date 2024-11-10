@@ -51,6 +51,8 @@ const App = () => {
   // RTL chache
   const cacheRTL = createCache({
     key: "muirtl",
+    // eslint-disable-next-line
+    // @ts-ignore
     stylisPlugins: [prefixer, stylisRTLPlugin],
   });
 

@@ -15,7 +15,7 @@ type ApointmentModalType = {
 };
 
 const ApointmentModal = ({ open, handleClose }: ApointmentModalType) => {
-  const { appointmentTime, appointmentDate, setAppointments } =
+  const {  appointmentDate, setAppointments } =
     useContext(AdminContext);
 
   return (
