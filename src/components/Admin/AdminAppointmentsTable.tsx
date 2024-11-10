@@ -3,7 +3,6 @@ import { Paper } from "@mui/material";
 import DeleteAppointmentButton from "./DeleteAppointmentButton";
 import AdminContext from "../../context/AdminContext";
 import { useContext } from "react";
-import moment from "moment-jalaali";
 import persianDays from "../../constants/persianDays";
 import getPersianDateAndTime from "../../helpers/js/getPersianDateAndTime";
 

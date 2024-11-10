@@ -6,7 +6,6 @@ import { Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Updater } from "use-immer";
 import ReserveButton from "./ReserveButton";
-import moment from "moment-jalaali";
 import persianDays from "../../constants/persianDays";
 import getPersianDateAndTime from "../../helpers/js/getPersianDateAndTime";
 
