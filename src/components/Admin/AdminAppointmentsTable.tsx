@@ -3,6 +3,9 @@ import { Paper } from "@mui/material";
 import DeleteAppointmentButton from "./DeleteAppointmentButton";
 import AdminContext from "../../context/AdminContext";
 import { useContext } from "react";
+import moment from "moment-jalaali";
+import persianDays from "../../constants/persianDays";
+import getPersianDateAndTime from "../../helpers/js/getPersianDateAndTime";
 
 const AdminAppointmentsTable = () => {
   const { appointments } = useContext(AdminContext);
@@ -28,8 +31,8 @@ const AdminAppointmentsTable = () => {
       align: "center",
     },
     {
-      field: "date",
-      headerName: "تاریخ",
+      field: "day",
+      headerName: "روز",
       resizable: false,
       align: "center",
     },
@@ -40,25 +43,32 @@ const AdminAppointmentsTable = () => {
       align: "center",
     },
     {
+      field: "date",
+      headerName: "تاریخ",
+      resizable: false,
+      align: "center",
+    },
+    {
       field: "reserveButton",
       headerName: "عملیات",
       align: "center",
       width: 150,
       renderCell: (params) => (
-        <DeleteAppointmentButton
-          appointmentId={params.row.id}
-        />
+        <DeleteAppointmentButton appointmentId={params.row.id} />
       ),
     },
   ];
 
   const rows = appointments.map((appointment) => {
+    const [date, time, day] = getPersianDateAndTime(appointment.date);
+
     return {
       id: appointment.id ?? "-",
       name: appointment.name ?? "-",
       phoneNumber: appointment.phoneNumber ?? "-",
-      date: appointment.date ?? "-",
-      time: appointment.time ?? "-",
+      day: persianDays[day] ?? "-",
+      time: time ?? "-",
+      date: date ?? "-",
     };
   });
 

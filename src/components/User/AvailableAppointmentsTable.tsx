@@ -6,6 +6,9 @@ import { Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Updater } from "use-immer";
 import ReserveButton from "./ReserveButton";
+import moment from "moment-jalaali";
+import persianDays from "../../constants/persianDays";
+import getPersianDateAndTime from "../../helpers/js/getPersianDateAndTime";
 
 type AvaiableAppointmentsTableType = {
   appointments: AppointMentsTypes[];
@@ -26,14 +29,20 @@ const AvaiableAppointmentsTable = ({
       align: "center",
     },
     {
-      field: "date",
-      headerName: "تاریخ",
+      field: "day",
+      headerName: "روز",
       resizable: false,
       align: "center",
     },
     {
       field: "time",
       headerName: "زمان",
+      resizable: false,
+      align: "center",
+    },
+    {
+      field: "date",
+      headerName: "تاریخ",
       resizable: false,
       align: "center",
     },
@@ -53,10 +62,13 @@ const AvaiableAppointmentsTable = ({
   ];
 
   const rows = appointments.map((appointment) => {
+    const [date, time, day] = getPersianDateAndTime(appointment.date);
+
     return {
-      id: appointment.id,
-      date: appointment.date,
-      time: appointment.time,
+      id: appointment.id ?? "-",
+      day: persianDays[day] ?? "-",
+      time: time ?? "-",
+      date: date ?? "-",
     };
   });
 
