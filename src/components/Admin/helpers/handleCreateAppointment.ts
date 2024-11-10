@@ -4,24 +4,20 @@ import { AdminContextTypes } from "../../../types/AdminContextTypes";
 
 type handleCreateAppointmentType = {
   appointmentDate: moment.Moment;
-  appointmentTime: moment.Moment;
   setAppointments: AdminContextTypes["setAppointments"];
 };
 
 const handleCreateAppointment = async ({
   appointmentDate,
-  appointmentTime,
   setAppointments,
 }: handleCreateAppointmentType) => {
   try {
-    const persianDate = moment(appointmentDate).format("jYYYY-jM-jD");
-    const persianTime = moment(appointmentTime).format("HH:mm");
+    const date = moment(appointmentDate);
 
     const { status, data: newAppointment } = await createAnAppointment({
       name: null,
       phoneNumber: null,
-      time: persianTime,
-      date: persianDate,
+      date,
       isReserved: false,
     });
 
