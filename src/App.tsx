@@ -17,14 +17,18 @@ import Login from "./components/Login";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import "./css-reset.css";
+import useLocalStorage from "./helpers/js/useLocalStorage";
 
 const App = () => {
   const navigate = useNavigate();
 
-  const [currentUserName, setCurrentUserName] = useState(null);
-  const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useState(null);
+  const [currentUserName, setCurrentUserName] =
+    useLocalStorage("currentUserName");
+  const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useLocalStorage(
+    "currentUserPhoneNumber",
+  );
 
-  const [userIsLogin, setUserIsLogin] = useState(false);
+  const [userIsLogin, setUserIsLogin] = useLocalStorage("userIsLogin");
 
   const [currentAccessLevel, setCurrentAccessLevel] = useState("admin");
 
@@ -36,6 +40,10 @@ const App = () => {
       setOpen(true);
     } else {
       setUserIsLogin(false);
+
+      setCurrentUserName(undefined);
+      setCurrentUserPhoneNumber(undefined);
+
       navigate("/auth");
       setOpen(true);
     }
