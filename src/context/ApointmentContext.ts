@@ -6,10 +6,6 @@ const ApointmentContext = createContext<ApointmentContextTypes>({
   setCurrentAccessLevel: () => {},
   userIsLogin: false,
   setUserIsLogin: () => {},
-  setCurrentUserName: () => {},
-  setCurrentUserPhoneNumber: () => {},
-  currentUserName: "",
-  currentUserPhoneNumber: "",
   handleHeaderLoginButton: () => {},
 });
 

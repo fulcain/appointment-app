@@ -17,9 +17,6 @@ const AvaiableAppointmentsTable = ({
   appointments,
   setAppointments,
 }: AvaiableAppointmentsTableType) => {
-  const { currentUserPhoneNumber, currentUserName } =
-    useContext(ApointmentContext);
-
   const columns: GridColDef[] = [
     {
       field: "id",
@@ -51,8 +48,6 @@ const AvaiableAppointmentsTable = ({
       align: "center",
       renderCell: (params) => (
         <ReserveButton
-          currentUserName={currentUserName as string}
-          currentUserPhoneNumber={currentUserPhoneNumber as string}
           appointmentId={params.row.id}
           setAppointments={setAppointments}
         />

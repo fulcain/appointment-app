@@ -15,8 +15,6 @@ export const createAnAppointment = (appointment: AppointMentsTypes) => {
 
 type updateAppointmentType = {
   isReserved: boolean;
-  name: string;
-  phoneNumber: string;
 };
 
 export const updateAppointment = (

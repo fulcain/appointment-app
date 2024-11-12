@@ -4,15 +4,11 @@ import { Button } from "@mui/material";
 type ReserveButtonType = {
   appointmentId: string;
   setAppointments: Function;
-  currentUserPhoneNumber: string;
-  currentUserName: string;
 };
 
 const ReserveButton = ({
   appointmentId,
   setAppointments,
-  currentUserName,
-  currentUserPhoneNumber,
 }: ReserveButtonType) => {
   return (
     <Button
@@ -23,8 +19,6 @@ const ReserveButton = ({
         handleReserve({
           appointmentId,
           setAppointments,
-          currentUserName: currentUserName as string,
-          currentUserPhoneNumber: currentUserPhoneNumber as string,
         });
       }}
     >
@@ -33,4 +27,4 @@ const ReserveButton = ({
   );
 };
 
-export default ReserveButton
+export default ReserveButton;

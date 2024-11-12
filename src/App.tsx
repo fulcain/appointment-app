@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { useNavigate, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import theme from "./layouts/themes/theme";
 import { ThemeProvider } from "@mui/material/styles";
@@ -22,11 +22,6 @@ import useLocalStorage from "./helpers/js/useLocalStorage";
 const App = () => {
   const navigate = useNavigate();
 
-  const [currentUserName, setCurrentUserName] =
-    useLocalStorage("currentUserName");
-  const [currentUserPhoneNumber, setCurrentUserPhoneNumber] = useLocalStorage(
-    "currentUserPhoneNumber",
-  );
 
   const [userIsLogin, setUserIsLogin] = useLocalStorage("userIsLogin");
 
@@ -40,9 +35,6 @@ const App = () => {
     } else {
       setUserIsLogin(false);
 
-      setCurrentUserName(undefined);
-      setCurrentUserPhoneNumber(undefined);
-
       navigate("/auth");
       setOpen(true);
     }
@@ -51,7 +43,13 @@ const App = () => {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    if (!userIsLogin) navigate("/auth");
+    // TODO: change logic later
+    // if (!userIsLogin) navigate("/auth");
+    // else if (isAdmin) {
+    //   navigate("/admin");
+    // } else if (!isAdmin) {
+    //   navigate("/user");
+    // }
   }, []);
 
   // RTL chache
@@ -71,16 +69,13 @@ const App = () => {
             setCurrentAccessLevel,
             userIsLogin,
             setUserIsLogin,
-            setCurrentUserName,
-            setCurrentUserPhoneNumber,
-            currentUserName,
-            currentUserPhoneNumber,
             handleHeaderLoginButton,
           }}
         >
           <ToastContainer position="top-right" rtl={true} theme="colored" />
           <Header />
           <Routes>
+            <Route path="/appointment-app" element={<Navigate to="/" />} />
             <Route
               path="/auth"
               element={<Login open={open} handleClose={handleClose} />}

@@ -5,21 +5,15 @@ import { toast } from "react-toastify";
 type handleReserveTypes = {
   appointmentId: string;
   setAppointments: Function;
-  currentUserName: string;
-  currentUserPhoneNumber: string;
 };
 
 const handleReserve = async ({
   appointmentId,
   setAppointments,
-  currentUserName,
-  currentUserPhoneNumber,
 }: handleReserveTypes) => {
   try {
     const { status } = await updateAppointment(
       {
-        name: currentUserName,
-        phoneNumber: currentUserPhoneNumber,
         isReserved: true,
       },
       appointmentId,
