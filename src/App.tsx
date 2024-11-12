@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import theme from "./components/theme";
+import theme from "./layouts/themes/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import stylisRTLPlugin from "stylis-plugin-rtl";
@@ -30,10 +30,9 @@ const App = () => {
 
   const [userIsLogin, setUserIsLogin] = useLocalStorage("userIsLogin");
 
-  const [currentAccessLevel, setCurrentAccessLevel] = useState("admin");
-
   // modal related states
   const [open, setOpen] = useState(true);
+  const [currentAccessLevel, setCurrentAccessLevel] = useState("admin");
 
   const handleHeaderLoginButton = () => {
     if (!userIsLogin) {
