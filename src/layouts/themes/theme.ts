@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import { faIR } from "@mui/x-date-pickers/locales";
+import { faIR as coreFaBG } from "@mui/material/locale";
 
 const theme = createTheme(
   {
@@ -18,6 +19,7 @@ const theme = createTheme(
     },
   },
   faIR,
+  coreFaBG,
 );
 
 export default theme;

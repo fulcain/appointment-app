@@ -9,6 +9,7 @@ import { useImmer } from "use-immer";
 
 import { Button } from "@mui/material";
 import AdminAppointmentsTable from "./AdminAppointmentsTable";
+import UsersTable from "./UsersTable";
 
 const AdminPage = () => {
   const [open, setOpen] = useState(false);
@@ -46,6 +47,7 @@ const AdminPage = () => {
         </Button>
         <ApointmentModal open={open} handleClose={handleClose} />
         <AdminAppointmentsTable />
+        <UsersTable />
       </div>
     </AdminContext.Provider>
   );
