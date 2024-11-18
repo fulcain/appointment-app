@@ -1,6 +1,6 @@
 import moment from "moment-jalaali";
 import { createAnAppointment } from "../../../services/appointments";
-import { AdminContextTypes } from "../../../types/AdminContextTypes";
+import { AdminContextTypes } from "../../../context/AdminContext";
 
 type handleCreateAppointmentType = {
   appointmentDate: moment.Moment;

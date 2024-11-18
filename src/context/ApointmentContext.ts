@@ -1,6 +1,15 @@
 import { User } from "@supabase/supabase-js";
 import { createContext } from "react";
-import { ApointmentContextTypes } from "../types/ApointmentContextTypes";
+
+type ApointmentContextTypes = {
+  currentAccessLevel: string;
+  setCurrentAccessLevel: Function;
+  userIsLogin: boolean;
+  setUserIsLogin: Function;
+  handleHeaderLoginButton: React.MouseEventHandler<HTMLButtonElement>;
+  user: User;
+  setUser: Function;
+};
 
 const ApointmentContext = createContext<ApointmentContextTypes>({
   currentAccessLevel: "",

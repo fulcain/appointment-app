@@ -1,19 +1,19 @@
-import { Paper } from "@mui/material";
+import { Avatar, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { supabase } from "../../utils/supabase";
 import { useContext, useEffect } from "react";
 import AdminContext from "../../context/AdminContext";
+import { supabaseAuthAdmin } from "../../utils/supabaseAdmin";
 
 const UsersTable = () => {
-  const { appointments } = useContext(AdminContext);
+  const { users, setUsers } = useContext(AdminContext);
 
   useEffect(() => {
     (async () => {
       try {
-        const user = await supabase.auth.admin.getUserById(
-          "7547d835-3f67-434b-bf33-7262f1ea66b2",
-        );
-        console.log(user);
+        const { data: usersTableData } = await supabaseAuthAdmin.listUsers();
+        const { users } = usersTableData;
+
+        setUsers(users);
       } catch (err) {
         throw err;
       }
@@ -26,45 +26,50 @@ const UsersTable = () => {
       headerName: "ID",
       resizable: false,
       align: "center",
+      width: 200,
     },
     {
-      field: "name",
-      headerName: "نام",
+      field: "avatar_url",
+      headerName: "عکس",
       resizable: false,
       align: "center",
-    },
-
-    {
-      field: "phoneNumber",
-      headerName: "شماره تلفن",
-      resizable: false,
-      align: "center",
-    },
-    {
-      field: "day",
-      headerName: "روز",
-      resizable: false,
-      align: "center",
-    },
-    {
-      field: "time",
-      headerName: "زمان",
-      resizable: false,
-      align: "center",
+      width: 220,
+      hideSortIcons: true,
+      display: "flex",
+      renderCell: (params) => (
+        <Avatar
+          sx={{
+            height: 50,
+            width: 50,
+          }}
+          src={params.value}
+          key={params.row.id}
+          alt={params.row.id}
+        />
+      ),
     },
     {
-      field: "date",
-      headerName: "تاریخ",
+      field: "email",
+      headerName: "ایمیل",
       resizable: false,
       align: "center",
+      width: 220,
+    },
+    {
+      field: "phone",
+      headerName: "شماره",
+      resizable: false,
+      align: "center",
+      width: 220,
     },
   ];
 
-  const rows = appointments.map((appointment) => {
+  const rows = users.map((user) => {
     return {
-      id: appointment.id ?? "-",
-      name: appointment.name ?? "-",
-      phoneNumber: appointment.phoneNumber ?? "-",
+      id: user.id ?? "-",
+      email: user.email ?? "-",
+      phone: user.phone ?? "-",
+      avatar_url: user.user_metadata.avatar_url ?? "",
     };
   });
 
@@ -75,6 +80,7 @@ const UsersTable = () => {
       <DataGrid
         rows={rows}
         columns={columns}
+        rowHeight={70}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
         sx={{ border: 0 }}

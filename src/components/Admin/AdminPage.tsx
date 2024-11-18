@@ -10,6 +10,7 @@ import { useImmer } from "use-immer";
 import { Button } from "@mui/material";
 import AdminAppointmentsTable from "./AdminAppointmentsTable";
 import UsersTable from "./UsersTable";
+import { User } from "@supabase/supabase-js";
 
 const AdminPage = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,7 @@ const AdminPage = () => {
 
   const [appointmentDate, setAppointmentDate] = useState(moment(new Date()));
   const [appointments, setAppointments] = useImmer<AppointMentsTypes[]>([]);
+  const [users, setUsers] = useState([] as User[]);
 
   // Get all apointments
   useEffect(() => {
@@ -39,6 +41,8 @@ const AdminPage = () => {
         appointments,
         setAppointments,
         appointmentDate,
+        users,
+        setUsers,
       }}
     >
       <div className="container">
