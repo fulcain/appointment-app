@@ -41,10 +41,8 @@ const useAuth = ({ setUserIsLogin, setUser, handleClose }: AuthTypes) => {
           const isUserAdmin = await checkUserIsAdmin(userId);
 
           if (isUserAdmin) {
-            console.log("isAdmin");
             navigate("/admin");
           } else {
-            console.log("not admin");
             navigate("/user");
           }
 
