@@ -12,7 +12,7 @@ import Header from "./components/Header";
 import AdminPage from "./components/Admin/AdminPage";
 import UserPage from "./components/User/UserPage";
 import ApointmentContext from "./context/ApointmentContext";
-import Authentication from "./components/Authentication";
+import AuthenticationUI from "./components/AuthenticationUI";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -20,6 +20,7 @@ import "./css-reset.css";
 import useLocalStorage from "./helpers/js/useLocalStorage";
 import { supabase } from "./utils/supabase";
 import { User } from "@supabase/supabase-js";
+import useAuth from "./hooks/useAuth";
 
 const App = () => {
   const navigate = useNavigate();
@@ -30,15 +31,6 @@ const App = () => {
   // modal related states
   const [open, setOpen] = useState(true);
   const [currentAccessLevel, setCurrentAccessLevel] = useState("admin");
-
-  useEffect(() => {
-    (async () => {
-      const { data: user } = await supabase.auth.getUser();
-
-      if (user.user) setUserIsLogin(true);
-      else setUserIsLogin(false);
-    })();
-  }, [userIsLogin]);
 
   const handleHeaderLoginButton = async () => {
     if (!userIsLogin) {
@@ -52,8 +44,9 @@ const App = () => {
       setOpen(true);
     }
   };
-
   const handleClose = () => setOpen(false);
+
+  useAuth({ setUserIsLogin, setUser, handleClose });
 
   // RTL chache
   const cacheRTL = createCache({
@@ -84,7 +77,9 @@ const App = () => {
             <Route path="/" element={<Navigate to="/auth" />} />
             <Route
               path="/auth"
-              element={<Authentication open={open} handleClose={handleClose} />}
+              element={
+                <AuthenticationUI open={open} handleClose={handleClose} />
+              }
             />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/user" element={<UserPage />} />

@@ -10,34 +10,14 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "../utils/supabase";
 import { supabaseFa } from "../constants/supabaseAuthTexts";
+import { Typography } from "@mui/material";
 
 type LoginType = {
   open: boolean;
   handleClose: Function;
 };
 
-const Authentication = ({ open, handleClose }: LoginType) => {
-  const { user, setUser, setUserIsLogin } = useContext(ApointmentContext);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN" && session) {
-        const { user } = session;
-        const { app_metadata } = user;
-        setUser(user);
-        setUserIsLogin(true);
-
-        navigate("/user");
-        handleClose();
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [user]);
-
+const AuthenticationUI = ({ open, handleClose }: LoginType) => {
   return (
     <Modal
       open={open}
@@ -45,8 +25,13 @@ const Authentication = ({ open, handleClose }: LoginType) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
+        <Typography variant="h5" textAlign="center" color="primary.main">
+          اعتبار سنجی
+        </Typography>
         <Auth
-          providers={["github"]}
+          // TODO: Add later
+          // providers={["github"]}
+          providers={[]}
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
           localization={supabaseFa}
@@ -57,4 +42,4 @@ const Authentication = ({ open, handleClose }: LoginType) => {
   );
 };
 
-export default Authentication;
+export default AuthenticationUI;
