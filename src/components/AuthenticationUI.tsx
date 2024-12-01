@@ -1,23 +1,22 @@
 import Modal from "@mui/material/Modal";
 import Box from "@mui/system/Box";
 
-import modalStyle from "../helpers/js/modal-styles";
-import { useContext, useEffect, useState } from "react";
-import ApointmentContext from "../context/ApointmentContext";
-import { useNavigate } from "react-router-dom";
-
+import modalStyle from "../utils/modal-styles";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "../utils/supabase";
+import { supabase } from "../utils/supabase/supabase";
 import { supabaseFa } from "../constants/supabaseAuthTexts";
 import { Typography } from "@mui/material";
+import useRedirectLoggedInUser from "../utils/supabase/hooks/useRedirectLoggedInUser";
 
 type LoginType = {
   open: boolean;
   handleClose: Function;
 };
 
-const AuthenticationUI = ({ open, handleClose }: LoginType) => {
+const AuthenticationUI = ({ open }: LoginType) => {
+  useRedirectLoggedInUser();
+
   return (
     <Modal
       open={open}

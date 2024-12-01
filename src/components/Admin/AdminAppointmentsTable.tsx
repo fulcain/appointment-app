@@ -4,7 +4,7 @@ import DeleteAppointmentButton from "./DeleteAppointmentButton";
 import AdminContext from "../../context/AdminContext";
 import { useContext } from "react";
 import persianDays from "../../constants/persianDays";
-import getPersianDateAndTime from "../../helpers/js/getPersianDateAndTime";
+import getPersianDateAndTime from "../../utils/getPersianDateAndTime";
 
 const AdminAppointmentsTable = () => {
   const { appointments } = useContext(AdminContext);

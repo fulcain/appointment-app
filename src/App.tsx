@@ -17,10 +17,11 @@ import AuthenticationUI from "./components/AuthenticationUI";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import "./css-reset.css";
-import useLocalStorage from "./helpers/js/useLocalStorage";
-import { supabase } from "./utils/supabase";
+import useLocalStorage from "./utils/useLocalStorage";
+import { supabase } from "./utils/supabase/supabase";
 import { User } from "@supabase/supabase-js";
 import useAuth from "./hooks/useAuth";
+import checkUserIsLogin from "./utils/supabase/checkUserIsLogin";
 
 const App = () => {
   const navigate = useNavigate();
@@ -33,12 +34,14 @@ const App = () => {
   const [currentAccessLevel, setCurrentAccessLevel] = useState("admin");
 
   const handleHeaderLoginButton = async () => {
+    const userIsLogin = await checkUserIsLogin();
     if (!userIsLogin) {
       setOpen(true);
+      setUserIsLogin(userIsLogin);
     } else {
-      setUserIsLogin(false);
       await supabase.auth.signOut();
       setUser({} as User);
+      setUserIsLogin(false);
 
       navigate("/auth");
       setOpen(true);

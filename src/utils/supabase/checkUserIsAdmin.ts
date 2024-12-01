@@ -1,4 +1,4 @@
-import { supabase } from "../../utils/supabase";
+import { supabase } from "./supabase";
 
 // Function to check if a user is an admin
 const checkUserIsAdmin = async (userId: string) => {

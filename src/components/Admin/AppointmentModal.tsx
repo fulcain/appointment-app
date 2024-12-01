@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 
 import DateAndTimePickers from "./DateAndTimePickers";
 
-import modalStyle from "../../helpers/js/modal-styles";
+import modalStyle from "../../utils/modal-styles";
 import handleCreateAppointment from "./helpers/handleCreateAppointment";
 import { useContext } from "react";
 import AdminContext from "../../context/AdminContext";

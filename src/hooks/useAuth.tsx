@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import checkUserIsAdmin from "../helpers/js/checkUserIsAdmin";
-import { supabase } from "../utils/supabase";
+import checkUserIsAdmin from "../utils/supabase/checkUserIsAdmin";
+import { supabase } from "../utils/supabase/supabase";
 
 type AuthTypes = {
   setUserIsLogin: Function;

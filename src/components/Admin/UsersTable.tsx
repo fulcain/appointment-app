@@ -2,7 +2,7 @@ import { Avatar, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useContext, useEffect } from "react";
 import AdminContext from "../../context/AdminContext";
-import { supabaseAuthAdmin } from "../../utils/supabaseAdmin";
+import { supabaseAuthAdmin } from "../../utils/supabase/supabaseAdmin";
 
 const UsersTable = () => {
   const { users, setUsers } = useContext(AdminContext);

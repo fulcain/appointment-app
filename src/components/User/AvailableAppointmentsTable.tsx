@@ -7,7 +7,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Updater } from "use-immer";
 import ReserveButton from "./ReserveButton";
 import persianDays from "../../constants/persianDays";
-import getPersianDateAndTime from "../../helpers/js/getPersianDateAndTime";
+import getPersianDateAndTime from "../../utils/getPersianDateAndTime";
 
 type AvaiableAppointmentsTableType = {
   appointments: AppointMentsTypes[];
