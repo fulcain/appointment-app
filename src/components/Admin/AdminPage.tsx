@@ -7,7 +7,6 @@ import AdminContext from "../../context/AdminContext";
 import { Button } from "@mui/material";
 import AdminAppointmentsTable from "./AdminAppointmentsTable";
 import UsersTable from "./UsersTable";
-import { User } from "@supabase/supabase-js";
 import { useGetAppointmentsQuery } from "../../reducers/adminSlice";
 
 const AdminPage = () => {
@@ -17,7 +16,6 @@ const AdminPage = () => {
   const { data: appointments, error, isLoading } = useGetAppointmentsQuery();
 
   const [appointmentDate, setAppointmentDate] = useState(moment(new Date()));
-  const [users, setUsers] = useState([] as User[]);
 
   return (
     <AdminContext.Provider
@@ -25,8 +23,6 @@ const AdminPage = () => {
         appointmentDate,
         setAppointmentDate,
         appointments,
-        users,
-        setUsers,
       }}
     >
       <div className="container">

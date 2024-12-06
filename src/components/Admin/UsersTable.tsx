@@ -1,24 +1,9 @@
 import { Avatar, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useContext, useEffect } from "react";
-import AdminContext from "../../context/AdminContext";
-import { supabaseAuthAdmin } from "../../utils/supabase/supabaseAdmin";
+import { useGetUsersQuery } from "../../reducers/adminSlice";
 
 const UsersTable = () => {
-  const { users, setUsers } = useContext(AdminContext);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data: usersTableData } = await supabaseAuthAdmin.listUsers();
-        const { users } = usersTableData;
-
-        setUsers(users);
-      } catch (err) {
-        throw err;
-      }
-    })();
-  }, []);
+  const { data: users } = useGetUsersQuery();
 
   const columns: GridColDef[] = [
     {
@@ -64,7 +49,7 @@ const UsersTable = () => {
     },
   ];
 
-  const rows = users.map((user) => {
+  const rows = users?.map((user) => {
     return {
       id: user.id ?? "-",
       email: user.email ?? "-",
