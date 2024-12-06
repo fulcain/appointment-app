@@ -31,7 +31,6 @@ const AdminPage = () => {
         </Button>
         <ApointmentModal open={open} handleClose={handleClose} />
         <AdminAppointmentsTable isLoading={isLoading} />
-        <UsersTable />
       </div>
     </AdminContext.Provider>
   );

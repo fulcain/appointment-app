@@ -61,16 +61,18 @@ const UsersTable = () => {
   const paginationModel = { page: 0, pageSize: 5 };
 
   return (
-    <Paper className="mt-5" sx={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        rowHeight={70}
-        initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
-        sx={{ border: 0 }}
-      />
-    </Paper>
+    <div className="container">
+      <Paper className="mt-5" sx={{ height: 400, width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          rowHeight={70}
+          initialState={{ pagination: { paginationModel } }}
+          pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
+          sx={{ border: 0 }}
+        />
+      </Paper>
+    </div>
   );
 };
 

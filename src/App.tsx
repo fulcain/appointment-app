@@ -22,6 +22,7 @@ import { supabase } from "./utils/supabase/supabase";
 import { User } from "@supabase/supabase-js";
 import useAuth from "./hooks/useAuth";
 import checkUserIsLogin from "./utils/supabase/checkUserIsLogin";
+import UsersTable from "./components/Admin/UsersTable";
 
 const App = () => {
   const navigate = useNavigate();
@@ -85,6 +86,7 @@ const App = () => {
               }
             />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/users" element={<UsersTable />} />
             <Route path="/user" element={<UserPage />} />
           </Routes>
         </ApointmentContext.Provider>
