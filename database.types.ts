@@ -9,48 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      profiles: {
+      appointments: {
         Row: {
-          is_admin: boolean;
-          user_id: string;
+          created_at: string;
+          date: string | null;
+          id: number;
+          isReserved: boolean | null;
+          reservedBy: string | null;
         };
         Insert: {
-          is_admin?: boolean;
-          user_id: string;
+          created_at?: string;
+          date?: string | null;
+          id?: number;
+          isReserved?: boolean | null;
+          reservedBy?: string | null;
         };
         Update: {
-          is_admin?: boolean;
-          user_id?: string;
+          created_at?: string;
+          date?: string | null;
+          id?: number;
+          isReserved?: boolean | null;
+          reservedBy?: string | null;
         };
         Relationships: [];
       };
-      users: {
+      profiles: {
         Row: {
-          created_at: string;
-          email: string | null;
-          id: number;
-          isAdmin: boolean | null;
-          password: number | null;
-          phonenumber: number | null;
-          username: string | null;
+          id: string;
+          isAdmin: Json | null;
         };
         Insert: {
-          created_at?: string;
-          email?: string | null;
-          id?: number;
-          isAdmin?: boolean | null;
-          password?: number | null;
-          phonenumber?: number | null;
-          username?: string | null;
+          id: string;
+          isAdmin?: Json | null;
         };
         Update: {
-          created_at?: string;
-          email?: string | null;
-          id?: number;
-          isAdmin?: boolean | null;
-          password?: number | null;
-          phonenumber?: number | null;
-          username?: string | null;
+          id?: string;
+          isAdmin?: Json | null;
         };
         Relationships: [];
       };
@@ -69,6 +63,8 @@ export type Database = {
     };
   };
 };
+
+export type AppointmentsDBType = Database["public"]["Tables"]["appointments"]["Row"];
 
 type PublicSchema = Database[Extract<keyof Database, "public">];
 
