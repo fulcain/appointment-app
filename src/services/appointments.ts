@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AppointMentsTypes } from "../components/AppTypes";
+import { AppointmentsDBType } from "../../database.types";
 
 const SERVER_URL = "http://localhost:9000";
 
@@ -8,7 +8,7 @@ export const getAllAppointments = () => {
   return axios.get(url);
 };
 
-export const createAnAppointment = (appointment: AppointMentsTypes) => {
+export const createAnAppointment = (appointment: AppointmentsDBType) => {
   const url = `${SERVER_URL}/appointments`;
   return axios.post(url, appointment);
 };
