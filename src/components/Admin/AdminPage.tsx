@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ApointmentModal from "./AppointmentModal";
-import { getAllAppointments } from "../../services/appointments";
 
 import moment from "moment-jalaali";
 import AdminContext from "../../context/AdminContext";
-import { useImmer } from "use-immer";
 
 import { Button } from "@mui/material";
 import AdminAppointmentsTable from "./AdminAppointmentsTable";
 import UsersTable from "./UsersTable";
 import { User } from "@supabase/supabase-js";
-import { AppointmentsDBType } from "../../../database.types";
-import { useGetAppointmentsQuery } from "../../api/apiSlice";
+import { useGetAppointmentsQuery } from "../../reducers/adminSlice";
 
 const AdminPage = () => {
   const [open, setOpen] = useState(false);

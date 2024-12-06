@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
 import AvaiableAppointmentsTable from "./AvailableAppointmentsTable";
-import {
-  useGetAvailableAppointmentsQuery,
-} from "../../api/apiSlice";
+import { useGetAvailableAppointmentsQuery } from "../../reducers/userSlice";
 
 const UserPage = () => {
   const { userIsLogin } = useContext(ApointmentContext);
