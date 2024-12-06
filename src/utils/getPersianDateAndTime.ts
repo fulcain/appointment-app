@@ -1,7 +1,7 @@
 import moment from "moment-jalaali";
 
 type GetPersianDateAndTimeType = (
-  userDate: moment.Moment,
+  userDate: null | string,
 ) => [date: string, time: string, day: number];
 
 const getPersianDateAndTime: GetPersianDateAndTimeType = (userDate) => {
