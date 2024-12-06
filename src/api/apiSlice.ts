@@ -21,7 +21,26 @@ export const apiSlice = createApi({
         return { data };
       },
     }),
+    getAvailableAppointments: builder.query<AppointmentsDBType[], void>({
+      queryFn: async () => {
+        let { data, error } = await supabase
+          .from("appointments")
+          .select("*")
+          .eq("isReserved", false);
+
+        if (error) {
+          return { error: { status: "CUSTOM_ERROR", data: error } };
+        }
+
+        if (!data) {
+          return { error: { status: "EMPTY_DATA", data: "No data found" } };
+        }
+
+        return { data };
+      },
+    }),
   }),
 });
 
-export const { useGetAppointmentsQuery } = apiSlice;
+export const { useGetAppointmentsQuery, useGetAvailableAppointmentsQuery } =
+  apiSlice;
