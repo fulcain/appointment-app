@@ -1,26 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import ApointmentContext from "../../context/ApointmentContext";
-import { getAllAppointments } from "../../services/appointments";
 import AvaiableAppointmentsTable from "./AvailableAppointmentsTable";
-import { AppointMentsTypes } from "../AppTypes";
-import { useImmer } from "use-immer";
+import { useGetAppointmentsQuery } from "../../api/apiSlice";
 
 const UserPage = () => {
   const { userIsLogin } = useContext(ApointmentContext);
-
-  const [appointments, setAppointments] = useImmer<AppointMentsTypes[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data: appointmentData } = await getAllAppointments();
-
-        setAppointments(appointmentData);
-      } catch (err) {
-        console.error(err);
-      }
-    })();
-  }, []);
+  const { data: appointments, isLoading } = useGetAppointmentsQuery();
 
   return (
     <div className="container">
@@ -29,8 +14,8 @@ const UserPage = () => {
           <main>
             <section className="flex gap-10 flex-row flex-wrap mt-10">
               <AvaiableAppointmentsTable
-                setAppointments={setAppointments}
                 appointments={appointments}
+                isLoading={isLoading}
               />
             </section>
           </main>

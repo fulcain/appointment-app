@@ -1,11 +1,11 @@
 import { Updater } from "use-immer";
+import { AppointmentsDBType } from "../../../../database.types";
 import { deleteAppointment } from "../../../services/appointments";
-import { AppointMentsTypes } from "../../AppTypes";
 
 type handleDeleteAppointmentType = {
   appointmentId: string;
-  setAppointments: Updater<AppointMentsTypes[]>;
-  appointments: AppointMentsTypes[];
+  setAppointments: Updater<AppointmentsDBType[]>;
+  appointments: AppointmentsDBType[];
 };
 
 const handleDeleteAppointment = async ({
@@ -13,16 +13,16 @@ const handleDeleteAppointment = async ({
   setAppointments,
   appointments,
 }: handleDeleteAppointmentType) => {
-  const copyOfAppointMents = [...appointments];
+  const copyOfAppointments = [...appointments];
   try {
     setAppointments((draft) =>
-      draft.filter((appointment) => appointment.id !== appointmentId),
+      draft.filter((appointment) => String(appointment.id) !== appointmentId),
     );
 
     const { status } = await deleteAppointment(appointmentId);
 
     if (status !== 200) {
-      setAppointments(copyOfAppointMents);
+      setAppointments(copyOfAppointments);
     }
   } catch (err) {
     throw err;

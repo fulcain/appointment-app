@@ -15,7 +15,7 @@ type ApointmentModalType = {
 };
 
 const ApointmentModal = ({ open, handleClose }: ApointmentModalType) => {
-  const { appointmentDate, setAppointments } = useContext(AdminContext);
+  const { appointmentDate } = useContext(AdminContext);
 
   return (
     <Modal
@@ -30,7 +30,6 @@ const ApointmentModal = ({ open, handleClose }: ApointmentModalType) => {
             onClick={() =>
               handleCreateAppointment({
                 appointmentDate,
-                setAppointments,
               })
             }
             className="w-[100px]"

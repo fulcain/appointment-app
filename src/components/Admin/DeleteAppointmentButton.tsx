@@ -10,20 +10,20 @@ type DeleteAppointmentButtonType = {
 const DeleteAppointmentButton = ({
   appointmentId,
 }: DeleteAppointmentButtonType) => {
-  const { appointments, setAppointments } = useContext(AdminContext);
+  const { appointments } = useContext(AdminContext);
 
   return (
     <Button
       color="error"
       className="w-[100px]"
       variant="outlined"
-      onClick={() =>
-        handleDeleteAppointment({
-          appointmentId,
-          appointments,
-          setAppointments,
-        })
-      }
+      // onClick={() =>
+      //   handleDeleteAppointment({
+      //     appointmentId,
+      //     appointments,
+      //     setAppointments,
+      //   })
+      // }
     >
       حذف زمان
     </Button>
