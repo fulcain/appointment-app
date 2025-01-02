@@ -9,6 +9,7 @@ const useRedirectLoggedInUser = async () => {
   useEffect(() => {
     (async () => {
       const userData = await getLoggedInUserData();
+      console.log(userData);
 
       if (!userData) return;
 

@@ -1,17 +1,12 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Paper, Skeleton } from "@mui/material";
 import DeleteAppointmentButton from "./DeleteAppointmentButton";
-import AdminContext from "../../context/AdminContext";
-import { useContext } from "react";
 import persianDays from "../../constants/persianDays";
 import getPersianDateAndTime from "../../utils/getPersianDateAndTime";
+import { useGetAppointmentsQuery } from "../../reducers/adminSlice";
 
-type AdminAppointmentsTableType = {
-  isLoading: boolean;
-};
-
-const AdminAppointmentsTable = ({ isLoading }: AdminAppointmentsTableType) => {
-  const { appointments } = useContext(AdminContext);
+const AdminAppointmentsTable = () => {
+  const { data: appointments, isLoading, error } = useGetAppointmentsQuery();
 
   const columns: GridColDef[] = [
     {

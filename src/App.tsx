@@ -10,7 +10,6 @@ import { prefixer } from "stylis";
 
 import Header from "./components/Header";
 import AdminPage from "./components/Admin/AdminPage";
-import UserPage from "./components/User/UserPage";
 import ApointmentContext from "./context/ApointmentContext";
 import AuthenticationUI from "./components/AuthenticationUI";
 
@@ -86,8 +85,7 @@ const App = () => {
               }
             />
             <Route path="/admin" element={<AdminPage />} />
-            <Route path="/admin/users" element={<UsersTable />} />
-            <Route path="/user" element={<UserPage />} />
+            <Route path="/user" element={<UsersTable />} />
           </Routes>
         </ApointmentContext.Provider>
       </ThemeProvider>

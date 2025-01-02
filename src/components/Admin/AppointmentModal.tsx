@@ -8,6 +8,7 @@ import modalStyle from "../../utils/modal-styles";
 import handleCreateAppointment from "./helpers/handleCreateAppointment";
 import { useContext } from "react";
 import AdminContext from "../../context/AdminContext";
+import { useGetAppointmentsQuery } from "../../reducers/adminSlice";
 
 type ApointmentModalType = {
   open: boolean;
@@ -16,6 +17,7 @@ type ApointmentModalType = {
 
 const ApointmentModal = ({ open, handleClose }: ApointmentModalType) => {
   const { appointmentDate } = useContext(AdminContext);
+  const { data: appointments, error, isLoading } = useGetAppointmentsQuery();
 
   return (
     <Modal

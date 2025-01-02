@@ -7,13 +7,11 @@ import AdminContext from "../../context/AdminContext";
 import { Button } from "@mui/material";
 import AdminAppointmentsTable from "./AdminAppointmentsTable";
 import UsersTable from "./UsersTable";
-import { useGetAppointmentsQuery } from "../../reducers/adminSlice";
 
 const AdminPage = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { data: appointments, error, isLoading } = useGetAppointmentsQuery();
 
   const [appointmentDate, setAppointmentDate] = useState(moment(new Date()));
 
@@ -22,7 +20,6 @@ const AdminPage = () => {
       value={{
         appointmentDate,
         setAppointmentDate,
-        appointments,
       }}
     >
       <div className="container">
@@ -30,7 +27,8 @@ const AdminPage = () => {
           زمان جدید نوبت
         </Button>
         <ApointmentModal open={open} handleClose={handleClose} />
-        <AdminAppointmentsTable isLoading={isLoading} />
+        <AdminAppointmentsTable />
+        <UsersTable />
       </div>
     </AdminContext.Provider>
   );

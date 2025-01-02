@@ -10,7 +10,6 @@ type DeleteAppointmentButtonType = {
 const DeleteAppointmentButton = ({
   appointmentId,
 }: DeleteAppointmentButtonType) => {
-  const { appointments } = useContext(AdminContext);
 
   return (
     <Button

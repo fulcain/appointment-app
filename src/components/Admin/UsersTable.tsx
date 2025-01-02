@@ -1,9 +1,9 @@
-import { Avatar, Paper } from "@mui/material";
+import { Avatar, Paper, Skeleton } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useGetUsersQuery } from "../../reducers/adminSlice";
 
 const UsersTable = () => {
-  const { data: users } = useGetUsersQuery();
+  const { data: users, isLoading, error } = useGetUsersQuery();
 
   const columns: GridColDef[] = [
     {
@@ -53,8 +53,8 @@ const UsersTable = () => {
     return {
       id: user.id ?? "-",
       email: user.email ?? "-",
-      phone: user.phone ?? "-",
-      avatar_url: user.user_metadata.avatar_url ?? "",
+      // phone: user.phone ?? "-",
+      // avatar_url: user.user_metadata.avatar_url ?? "",
     };
   });
 
@@ -63,14 +63,23 @@ const UsersTable = () => {
   return (
     <div className="container">
       <Paper className="mt-5" sx={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          rowHeight={70}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
-          sx={{ border: 0 }}
-        />
+        {isLoading && Boolean(!users) ? (
+          <Skeleton
+            animation="wave"
+            variant="rectangular"
+            width="100%"
+            height={400}
+          />
+        ) : (
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            rowHeight={70}
+            initialState={{ pagination: { paginationModel } }}
+            pageSizeOptions={[5, 10, 50, { value: -1, label: "کل داده ها" }]}
+            sx={{ border: 0 }}
+          />
+        )}
       </Paper>
     </div>
   );

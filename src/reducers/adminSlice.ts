@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "@supabase/supabase-js";
-import { AppointmentsDBType } from "../../database.types";
+import { AppointmentsDBType, UserListDBType } from "../../database.types";
 import { apiSlice } from "../api/apiSlice";
 import { supabase } from "../utils/supabase/supabase";
 import { supabaseAuthAdmin } from "../utils/supabase/supabaseAdmin";
@@ -24,19 +24,19 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         return { data };
       },
     }),
-    getUsers: builder.query<User[], void>({
+    getUsers: builder.query<UserListDBType[], void>({
       queryFn: async () => {
-        const { data, error } = await supabaseAuthAdmin.listUsers();
+        let { data, error } = await supabase.from("user_list").select("*");
 
         if (error) {
           return { error: { status: "CUSTOM_ERROR", data: error } };
         }
 
-        if (!data || !data.users) {
+        if (!data) {
           return { error: { status: "EMPTY_DATA", data: "No data found" } };
         }
 
-        return { data: data.users };
+        return { data };
       },
     }),
   }),
